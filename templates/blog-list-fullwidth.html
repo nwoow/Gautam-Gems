@@ -1,0 +1,73 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block body %}
+    <div class="offcanvas-overlay"></div>
+    <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- -->
+
+    <!-- Page Title/Header Start -->
+    <div class="page-title-section section" data-bg-image="/static/assets/images/banner/order.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+
+                    <div class="page-title">
+                        <h1 class="title">Blog</h1>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                            <li class="breadcrumb-item active">Blog</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page Title/Header End -->
+
+    <!-- Blog Section Start -->
+    <div class="section section-padding">
+        <div class="container">
+            <div class="row g-0 learts-mb-n40">
+                {% for b in blog %}
+                <div class="col-12 border-bottom learts-pb-40 learts-mb-40">
+                    <div class="blog">
+                        <div class="row learts-mb-n30">
+                            <div class="col-xl-4 col-md-5 col-12 learts-mb-30">
+                                <div class="image mb-0">
+                                    <a href="#"><img src="{{b.thumbnail.url}}" alt="Blog Image"></a>
+                                </div>
+                            </div>
+                            <div class="col-xl-8 col-md-7 col-12 align-self-center learts-mb-30">
+                                <div class="content">
+                                    <ul class="meta">
+                                        <li><i class="far fa-calendar"></i><a href="#">{{b.time_upload}}</a></li>
+                                        <li><i class="far fa-eye"></i> 201 views</li>
+                                    </ul>
+                                    <h5 class="title"><a href="#">{{b.title}}</a></h5>
+                                    <div class="desc">
+                                        <p>{{b.overview|safe|truncatechars:240}}
+                                        </p>
+                                    </div>
+                                    <a href="{% url 'blog_view' b.slug %}" class="link">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                
+            </div>
+
+            <div class="row learts-mt-50">
+                <div class="col text-center">
+                    <a href="#" class="btn btn-dark btn-outline-hover-dark">Load More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Blog Section End -->
+
+    {% include 'base/footer.html' %}
+
+{% endblock %}

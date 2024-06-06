@@ -1,0 +1,238 @@
+{% extends 'adminpannel/base.html' %}
+{% block body %}
+{% include 'adminpannel/loader.html' %}
+<div id="main-wrapper">
+    <!-- header -->
+    {% include 'adminpannel/header.html' %}
+    <!-- #/ header -->
+    <!-- sidebar -->
+    {% include 'adminpannel/sidebar.html' %}
+    <!-- #/ sidebar -->
+    <!-- content body -->
+    <div class="content-body">
+        <div class="container">
+            <div class="row page-titles">
+                <div class="col p-0">
+                    <h4>Hello, <span>Welcome here</span></h4>
+                </div>
+                <div class="col p-0">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a>
+                        </li>
+                        <li class="breadcrumb-item active">Dashboard</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="card lola-card">
+                        <div class="card-body">
+                            <h4>Pending Order<span class="pull-right"><i
+                                        class="ion-android-download f-s-30 text-primary"></i></span></h4>
+                            <h6 class="m-t-20 f-s-14">{{pending_count}}</h6>
+                            <div class="progress m-t-0 h-7px lola-pro">
+                                <div role="progressbar"
+                                    class="progress-bar bg-primary wow animated progress-animated w-50pc h-7px"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="card lola-card">
+                        <div class="card-body">
+                            <h4>To Packed <span class="pull-right"><i
+                                        class="ion-android-upload f-s-30 text-success"></i></span></h4>
+                            <h6 class="m-t-20 f-s-14">{{packed_count}}</h6>
+                            <div class="progress m-t-0 h-7px lola-pro">
+                                <div role="progressbar"
+                                    class="progress-bar bg-success wow animated progress-animated w-90pc h-7px"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3">
+                    <div class="card lola-card">
+                        <div class="card-body">
+                            <h4>To be Shipped<span class="pull-right"><i
+                                        class="ion-android-list f-s-30 text-danger"></i></span></h4>
+                            <h6 class="m-t-20 f-s-14">{{onway_count}}</h6>
+                            <div class="progress m-t-0 h-7px lola-pro">
+                                <div role="progressbar"
+                                    class="progress-bar bg-danger wow animated progress-animated w-65pc h-7px"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3">
+                    <div class="card lola-card">
+                        <div class="card-body">
+                            <h4>Delivered<span class="pull-right"><i
+                                        class="ion-android-list f-s-30 text-danger"></i></span></h4>
+                            <h6 class="m-t-20 f-s-14">{{delivered_count}}</h6>
+                            <div class="progress m-t-0 h-7px lola-pro">
+                                <div role="progressbar"
+                                    class="progress-bar bg-danger wow animated progress-animated w-65pc h-7px"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="card lola-card">
+                        <div class="card-body">
+                            <h4>Canceled<span class="pull-right"><i
+                                        class="ion-android-list f-s-30 text-danger"></i></span></h4>
+                            <h6 class="m-t-20 f-s-14">{{cancel_count}}</h6>
+                            <div class="progress m-t-0 h-7px lola-pro">
+                                <div role="progressbar"
+                                    class="progress-bar bg-danger wow animated progress-animated w-65pc h-7px"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="card lola-card">
+                        <div class="card-body">
+                            <h4>No of Category <span class="pull-right"><i
+                                        class="ion-android-list f-s-30 text-danger"></i></span></h4>
+                            <h6 class="m-t-20 f-s-14">{{categories.count}}</h6>
+                            <div class="progress m-t-0 h-7px lola-pro">
+                                <div role="progressbar"
+                                    class="progress-bar bg-danger wow animated progress-animated w-65pc h-7px"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="card lola-card">
+                        <div class="card-body">
+                            <h4>No of Sub Category <span class="pull-right"><i
+                                        class="ion-android-list f-s-30 text-danger"></i></span></h4>
+                            <h6 class="m-t-20 f-s-14">{{sub_category.count}}</h6>
+                            <div class="progress m-t-0 h-7px lola-pro">
+                                <div role="progressbar"
+                                    class="progress-bar bg-danger wow animated progress-animated w-65pc h-7px"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="card lola-card">
+                        <div class="card-body">
+                            <h4>No of Brands<span class="pull-right"><i
+                                        class="ion-android-list f-s-30 text-danger"></i></span></h4>
+                            <h6 class="m-t-20 f-s-14">{{brands.count}}</h6>
+                            <div class="progress m-t-0 h-7px lola-pro">
+                                <div role="progressbar"
+                                    class="progress-bar bg-danger wow animated progress-animated w-65pc h-7px"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="card lola-card">
+                        <div class="card-body">
+                            <h4>No of Products<span class="pull-right"><i
+                                        class="ion-android-list f-s-30 text-danger"></i></span></h4>
+                            <h6 class="m-t-20 f-s-14">{{products.count}}</h6>
+                            <div class="progress m-t-0 h-7px lola-pro">
+                                <div role="progressbar"
+                                    class="progress-bar bg-danger wow animated progress-animated w-65pc h-7px"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-7">
+                    <div class="card lola-card">
+                        <div class="card-body">
+                            <h4 class=" card-title">Monthly Income</h4>
+                            <div class="f-s-30 f-w-300 text-success">$3500 <span
+                                    class="f-s-16 text-uppercase">USD</span>
+                            </div>
+                            <a href="#" class="btn btn-outline-dark btn-flat m-t-5 m-b-30 f-s-14">View Details</a>
+                            <canvas id="sales-graph-top"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-5">
+                    <div class="card lola-card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h4 class="card-title">Messages  </h4>
+                                </div>
+                                <div>
+                                    <span class="mx-5"><b>{{contact_message.count}}</b></span>
+                                </div>
+                            </div>
+                            
+                           
+                            {% for c in contact_message|slice:":5" %}
+                            <div class="media border-bottom-1 p-t-15 p-b-15">
+                                <span class="mx-2"><h1><b>{{forloop.counter}}</b></h1></span>
+                                <div class="media-body">
+                                    <h5>{{c.name}} </h5><span class="text-muted f-s-6">{{c.created_at}}</span>
+                                    <p class="m-b-0">{{c.desc|truncatechars:"85"}}</p>
+                                </div>
+                            </div>
+                           {% endfor %}
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-12 col-xl-12">
+                    <div class="card lola-card">
+                        <div class="card-body">
+                            <div class="active-member">
+                                <div class="table-responsive">
+                                    <table class="table table-xs">
+                                        <thead>
+                                            <tr>
+                                                <th>Top Active Members</th>
+                                                <th>Views</th>
+                                                <th>Country</th>
+                                                <th>Status</th>
+                                                <th>Comments</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <img src="/static/assetss/images/avatar/1.jpg"
+                                                        class="w-40px rounded-circle m-r-10" alt="">Arden Karn
+                                                </td>
+                                                <td><span>125</span>
+                                                </td>
+                                                <td>United States</td>
+                                                <td><i class="fa fa-circle-o text-success f-s-12 m-r-10"></i> Active
+                                                </td>
+                                                <td><span>84</span>
+                                                </td>
+                                            </tr>
+                                           
+                                           
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+        <!-- #/ container -->
+    </div>
+    <!-- #/ content body -->
+    {% include 'adminpannel/copywrite.html' %}
+</div>
+{% endblock body %}

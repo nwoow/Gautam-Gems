@@ -1,0 +1,62 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block body %}
+    <!-- OffCanvas Search End -->
+    <div class="offcanvas-overlay"></div>
+    <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- -->
+    <!-- Page Title/Header Start -->
+    <div class="page-title-section section" data-bg-image="/static/assets/images//banner/order.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="page-title">
+                        <h1 class="title">Login & Register</h1>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                            <li class="breadcrumb-item active">Login & Register</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page Title/Header End -->
+
+    <!-- Login & Register Section Start -->
+    <div class="section section-padding">
+        <div class="container">
+            <div class="d-flex justify-content-center">
+                <div class="col-lg-6">
+                    <div class="user-login-register bg-light">
+                        <div class="login-register-title">
+                            <h2 class="title">Login</h2>
+                            <p class="desc">Great to have you back!</p>
+                        </div>
+                        <div class="login-register-form">
+                            {% include 'base/alerts.html' %}
+                            <form action="" method="post">
+                                {% csrf_token %}
+                                <div class="row learts-mb-n50">
+                                    <div class="col-12 learts-mb-50">
+                                        <input type="text" placeholder="mobile" name="mobile" value="{{mobile}}" id="mobile" disabled>
+                                    </div>
+                                    <div class="col-12 learts-mb-50">
+                                        <input type="password" placeholder="Otp" name="otp" id="password">
+                                    </div>
+                                    <div class="col-12 text-center learts-mb-50">
+                                        <button class="btn btn-dark btn-outline-hover-dark">Log in</button>
+                                    </div>                               
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+        </div>
+
+    </div>
+{% include 'base/footer.html' %}
+{% endblock body %}

@@ -1,0 +1,122 @@
+{% extends 'adminpannel/base.html' %}
+
+{% block body %}
+{% include 'adminpannel/loader.html' %}
+<div id="main-wrapper">
+    <!-- header -->
+    {% include 'adminpannel/header.html' %}
+    <!-- #/ header -->
+    <!-- sidebar -->
+    {% include 'adminpannel/sidebar.html' %}
+    <!-- #/ sidebar -->
+    <div class="content-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-xl-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="active-member">
+                                <div class="table-responsive">
+                                    <table class="table table-xs">
+                                        <thead>
+                                            <tr>
+                                                <th>Top Active Members</th>
+                                                <th>Views</th>
+                                                <th>Country</th>
+                                                <th>Status</th>
+                                                <th>Comments</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <img src="/static/assets/images/avatar/1.jpg"
+                                                        class="w-40px rounded-circle m-r-10" alt="">Arden Karn
+                                                </td>
+                                                <td><span>125</span>
+                                                </td>
+                                                <td>United States</td>
+                                                <td><i class="fa fa-circle-o text-success f-s-12 m-r-10"></i> Active
+                                                </td>
+                                                <td><span>84</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <img src="/static/assets/images/avatar/2.jpg"
+                                                        class="w-40px rounded-circle m-r-10" alt="">Arden Karn
+                                                </td>
+                                                <td><span>547</span>
+                                                </td>
+                                                <td>Canada</td>
+                                                <td><i class="fa fa-circle-o text-success f-s-12 m-r-10"></i> Active
+                                                </td>
+                                                <td><span>36</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <img src="/static/assets/images/avatar/3.jpg"
+                                                        class="w-40px rounded-circle m-r-10" alt="">Arden Karn
+                                                </td>
+                                                <td><span>557</span>
+                                                </td>
+                                                <td>Germany</td>
+                                                <td><i class="fa fa-circle-o text-danger f-s-12 m-r-10"></i> Inactive
+                                                </td>
+                                                <td><span>55</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <img src="/static/assets/images/avatar/4.jpg"
+                                                        class="w-40px rounded-circle m-r-10" alt="">Arden Karn
+                                                </td>
+                                                <td><span>753</span>
+                                                </td>
+                                                <td>England</td>
+                                                <td><i class="fa fa-circle-o text-success f-s-12 m-r-10"></i> Active
+                                                </td>
+                                                <td><span>45</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <img src="/static/assets/images/avatar/5.jpg"
+                                                        class="w-40px rounded-circle m-r-10" alt="">Arden Karn
+                                                </td>
+                                                <td><span>453</span>
+                                                </td>
+                                                <td>China</td>
+                                                <td><i class="fa fa-circle-o text-danger f-s-12 m-r-10"></i> Inactive
+                                                </td>
+                                                <td><span>63</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <img src="/static/assets/images/avatar/6.jpg"
+                                                        class="w-40px rounded-circle m-r-10" alt="">Arden Karn
+                                                </td>
+                                                <td><span>658</span>
+                                                </td>
+                                                <td>Japan</td>
+                                                <td><i class="fa fa-circle-o text-success f-s-12 m-r-10"></i> Active
+                                                </td>
+                                                <td><span>38</span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'adminpannel/copywrite.html' %}
+</div>
+{% endblock body %}

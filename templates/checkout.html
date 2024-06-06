@@ -1,0 +1,383 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load mathfilters %}
+
+{% block body %}
+
+<!-- Page Title/Header End -->
+<!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- -->
+<!-- Checkout Section Start -->
+<!-- *!--------------------------------------------------- -->
+<!--Checkout section start-->
+<section class="checkOut mb-5 pt-5 pb-5 ">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7 mt-5 ">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2 class="mb-3">Contact</h2>
+                    <span class="logg">
+                        {% if user.is_authenticated %}
+
+                        {% else %}
+                        Have an Account?
+                        <a href="{% url 'userlogin' %}"> Log in</a>
+                        {% endif %}
+                    </span>
+                </div>
+                <!-- ! delivery address -->
+                <form class="row g-3 border border-success-subtle  p-3" method="post">
+                    {% csrf_token %}
+
+                    <h2 class="mb-3"><b>Delivery</b></h2>
+                    <div class="col-md-12">
+                        <label for="name" class="form-label ">Full Name</label>
+                        <input type="text" class="form-control" name="name" value="{{address.name}}" required>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="address" class="form-label">Address</label>
+                        <input type="text" class="form-control" name="address" value="{{address.addressline}}" required>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="locality" class="form-label ">Locality</label>
+                        <input type="text" class="form-control " name="locality" value="{{address.locality}}" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="validationCustom04" class="form-label">City</label>
+                        <input type="text" class="form-control" id="validationCustom04" name="city"
+                            value="{{address.city}}" required>
+                        <div class="invalid-feedback">
+                            Please provide a valid city.
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="validationCustom05" class="form-label">State</label>
+                        <input type="text" class="form-control" id="state" name="state"
+                                            value="{{address.state}}" required>
+                       
+                        <div class="invalid-feedback">
+                            Please select a valid state.
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="validationCustom06" class="form-label">Zip</label>
+                        <input type="text" class="form-control" id="validationCustom06" name="zipcode"
+                            value="{{address.zipcode}}" required>
+                        <div class="invalid-feedback">
+                            Please provide a valid zip.
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="mobile" class="form-label ">Mobile No</label>
+                        {% if address.phone %}
+                        <input type="text" class="form-control " name="mobile" value="{{address.phone}}" readonly>
+                        {% else %}
+                        <input type="text" class="form-control " name="mobile" required>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-12">
+                        <label for="email" class="form-label ">Email ID</label>
+                        <input type="text" class="form-control " name="email" value="{{address.email}}" required>
+                    </div>
+
+                    <!--  ?Shipping method -->
+                    <h4>Shipping Method</h4>
+                    <div class="shadow-none p-3 mb-3 text-dark rounded border border-info d-flex align-items-center justify-content-between "
+                        style="background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(0, 216, 80, 1) 77%, rgb(18 138 162) 100%)">
+                        <span class="text-white fw-bold">Free Shipping 🎁</span>
+                        <span class="text-white fw-bold">Free</span>
+                    </div>
+
+                    <h2 class="fs-4 "><b>Payment</b></h2>
+                    <p class="text-muted mt-0">All transactions are secure and encrypted.</p>
+                    <!-- ================== -->
+                    <div class="accordion accordion-flush mb-5" id="accordionFlushExample">
+                        <div class="accordion-item mb-3">
+                            <h2 class="accordion-header" id="flush-headingOne">
+
+
+                            </h2>
+                            <div id="flush-collapseOne" class="accordion-collapse collapse"
+                                aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body text-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-252.3 356.1 163 80.9" width="200"
+                                        class="eHdoK">
+                                        <path fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"
+                                            d="M-108.9 404.1v30c0 1.1-.9 2-2 2H-231c-1.1 0-2-.9-2-2v-75c0-1.1.9-2 2-2h120.1c1.1 0 2 .9 2 2v37m-124.1-29h124.1">
+                                        </path>
+                                        <circle cx="-227.8" cy="361.9" r="1.8" fill="currentColor"></circle>
+                                        <circle cx="-222.2" cy="361.9" r="1.8" fill="currentColor"></circle>
+                                        <circle cx="-216.6" cy="361.9" r="1.8" fill="currentColor"></circle>
+                                        <path fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"
+                                            d="M-128.7 400.1H-92m-3.6-4.1 4 4.1-4 4.1"></path>
+                                    </svg>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item mb-3">
+                            <div id="flush-collapseTwo" class="accordion-collapse collapse"
+                                aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                                <div
+                                    class="shadow-none p-3  accordion-body text-dark rounded border border-info d-flex align-items-center justify-content-between ">
+                                    Same as shipping address
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item mb-5">
+                            <h2 class="accordion-header" id="flush-headingThree">
+                                <label class="form-check-label accordion-button collapsed bg-secondary-subtle"
+                                    for="checkbox" type="button" data-bs-toggle="collapse" 
+                                    data-bs-target="#flush-collapseThree" aria-expanded="false"
+                                    aria-controls="flush-collapseThree">
+                                    <input class="form-check-input ms-0" type="checkbox" id="checkbox" onclick="handlecheckbox()"
+                                        name="checkbox">&nbsp;&nbsp;&nbsp;
+                                    <div class="razor-pay">
+                                        <p>Use a different billing address</p>
+                                    </div>
+                                </label>
+
+                            </h2>
+                            <div id="flush-collapseThree" class="accordion-collapse collapse"
+                                aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body  row g-3 needs-validation" novalidate>
+
+                                    <div class="col-md-12">
+                                        <label for="name" class="form-label ">Full Name</label>
+                                        <input type="text" class="form-control" name="billname" id="billname"
+                                            value="{{billaddress.name}}" disabled>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label for="address" class="form-label">Address</label>
+                                        <input type="text" class="form-control" name="billaddress" id="billaddress"
+                                            value="{{billaddress.addressline}}" disabled>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label for="locality" class="form-label ">Locality</label>
+                                        <input type="text" class="form-control " name="billlocality" id="billlocality"
+                                            value="{{billaddress.locality}}" disabled>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="validationCustom04" class="form-label">City</label>
+                                        <input type="text" class="form-control" id="billcity"
+                                            value="{{billaddress.city}}" name="billcity" disabled>
+                                        <div class="invalid-feedback">
+                                            Please provide a valid city.
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="validationCustom05" class="form-label">State</label>
+                                        <input type="text" class="form-control" id="billstate" name="billstate"
+                                            value="{{billaddress.state}}" disabled>
+                                        
+                                        <div class="invalid-feedback">
+                                            Please select a valid state.
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="validationCustom06" class="form-label">Zip</label>
+                                        <input type="text" class="form-control" id="billzipcode" name="billzipcode"
+                                            value="{{billaddress.zipcode}}" disabled>
+                                        <div class="invalid-feedback">
+                                            Please provide a valid zip.
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label for="mobile" class="form-label ">Mobile No</label>
+                                        {% if billaddress.phone %}
+                                        <input type="text" class="form-control " name="billmobile" id="billmobile"
+                                            value="{{billaddress.phone}}" disabled>
+                                        {% else %}
+                                        <input type="text" class="form-control " name="billmobile" id="billmobile"
+                                            disabled>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label for="email" class="form-label ">Email ID</label>
+                                        <input type="text" class="form-control " name="billemail" id="billemail"
+                                            value="{{billaddress.email}}" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ! submit button -->
+                    <button class="btn col-12 bg-dark text-center rounded text-white mb-4" type="submit">Pay
+                        Now</button>
+                </form>
+
+
+            </div>
+            <!--  -->
+            <div class="col-md-5">
+                <div class="border p-2" style="position: sticky; top: 150px;background-color: #F5F5F5;">
+                    {% for p in product_in_cart %}
+                    <div class="d-flex mb-3">
+                        <div class="flex-shrink-0 position-relative">
+                            <img src="{{p.product_images.first.image.url}}" alt="product image" width="62" height="62"
+                                class=" ">
+                            <span
+                                class="position-absolute top-0 start-100 translate-middle badge rounded bg-secondary text-white">
+                                {{p.quantity}}
+                                <span class="visually-hidden">unread messages</span>
+                            </span>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <b>{{p.product_name}}</b>
+                            <p>₹{{p.dis_price}}</p>
+                        </div>
+                        <p>₹{{p.dis_price|mul:p.quantity}}</p>
+                    </div>
+                    {% endfor %}
+                    <div class="discount-form col-md-12 ">
+                        <form action="#">
+                            <div class="input-group mb-3 flex-nowrap">
+                                <input type="text" class="form-control me-2" placeholder="Discount Code"
+                                    aria-label="Discount Code" aria-describedby="button-addon2">
+                                <button class="btn mb-0 rounded border" type="button" id="button-addon2">Apply</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="d-flex  justify-content-between  ">
+                        <p>Subtotal</p>
+                        <p>₹{{totalamount}}</p>
+                    </div>
+                    <div class="d-flex  justify-content-between  ">
+                        <p>Shipping <span id="myBtn"><img src="/static/assets/images/question.webp" alt="question mark"
+                                    width="20"></span></p>
+                        <p>Free</p>
+                        <!-- Trigger/Open The Modal -->
+
+
+                        <!-- The Modal -->
+                        <div id="myDodal" class="dodal">
+
+                            <!-- Modal content -->
+                            <div class="dodal-contentt">
+                                <span class="close">&times;</span>
+                                <h2><strong>Shipping policy</strong></h2>
+                                <p>We use Delhivery /Bluedart/Ekart/Xpressbees to deliver all our goods,.</p>
+                                <p>We offer the fastest "ORDER TO DELIVERY" time in the industry.</p>
+                                <p>We take Pride in the fact that we have over 99.98% on or before time deliveries.
+                                </p>
+                                <p>Takes 3-8 days for delivery</p>
+                                <p>One Day Delivery for NCR on request.</p>
+                                <p>For Metro Cities Delivery Time 3-5 Days</p>
+                                <p>For Tier II Cities Delivery Time 4-7 Days</p>
+                                <p>For Villages Delivery Time 7-10 Days</p>
+                                <p>If courier company delays shipment we are not responsible </p>
+                                <p>If the shipment is returned back to us you need to pay for shipping charges again
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="d-flex  justify-content-between  ">
+                        <p><b>Total</b></p>
+                        <p>INR&nbsp; ₹{{totalamount}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--Checkout section end-->
+<script>
+    // Get the modal
+    var dodal = document.getElementById("myDodal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal 
+    btn.onclick = function () {
+        dodal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        dodal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == dodal) {
+            dodal.style.display = "none";
+        }
+    }
+</script>
+<script>
+    function handlecheckbox() {
+
+        const billname = document.getElementById('billname')
+        const billaddress = document.getElementById('billaddress')
+        const billlocality = document.getElementById('billlocality')
+        const billcity = document.getElementById('billcity')
+        const billzipcode = document.getElementById('billzipcode')
+        const billstate = document.getElementById('billstate')
+        const billmobile = document.getElementById('billmobile')
+        const billemail = document.getElementById('billemail')
+        if (!billname.disabled ===false) {
+            console.log('if cledd')
+            billname.disabled = false
+            billname.required = true
+            billaddress.disabled = false
+            billaddress.required = true
+
+            billlocality.disabled = false
+            billlocality.required = true
+
+            billcity.disabled = false
+            billcity.required = true
+
+            billzipcode.disabled = false
+            billzipcode.required = true
+
+            billstate.disabled = false
+            billstate.required = true
+
+            billmobile.disabled = false
+            billmobile.readonly = true
+
+            billemail.disabled = false
+            billemail.required = true
+        } else {
+            console.log('elseif cledd')
+            billname.disabled = true
+            billname.required = false
+
+            billaddress.disabled = true
+            billaddress.required = false
+
+            billlocality.disabled = true
+            billlocality.required = false
+
+            billcity.disabled = true
+            billcity.required = false
+
+            billzipcode.disabled = true
+            billzipcode.required = false
+
+            billstate.disabled = true
+            billstate.required = false
+
+            billmobile.disabled = true
+            billmobile.readonly = false
+
+            billemail.disabled = true
+            billemail.required = false
+        }
+
+
+    }
+</script>
+<!-- *!--------------------------------------------------- -->
+
+{% include 'base/footer.html' %}
+
+{% endblock body %}

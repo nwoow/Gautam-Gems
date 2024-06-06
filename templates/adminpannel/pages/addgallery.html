@@ -1,0 +1,87 @@
+{% extends 'adminpannel/base.html' %}
+
+{% block body %}
+{% include 'adminpannel/loader.html' %}
+<div id="main-wrapper">
+    <!-- header -->
+    {% include 'adminpannel/header.html' %}
+    <!-- #/ header -->
+    <!-- sidebar -->
+    {% include 'adminpannel/sidebar.html' %}
+    <!-- #/ sidebar -->
+    <div class="content-body">
+        <div class="container">
+            <div class="card">
+                <div class="card-body text-center">
+                    {% include 'base/alert.html' %}
+                    <h4 class="card-title">Add Gallery Images</h4>
+                    <hr>
+                    <div class="basic-form">
+                        <form class="form-inline" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6 my-1">
+                                    <label for="">Write about Images</label>                                
+                                </div>
+                                <div class="col-md-6 my-1">                                
+                                    <input type="text" class="form-control w-100" name="title" required>
+                                </div>
+                                <div class="col-md-6 my-1">
+                                    <label for="">Add Small Images</label>                             
+                                </div>
+                                <div class="col-md-6 my-1">                             
+                                    <input type="file" class="form-control w-100" name="small_image" id="" required>
+                                </div>
+                                <div class="col-md-6 my-1">
+                                    <label for="">Add Large Images</label>                                  
+                                </div>
+                                <div class="col-md-6 my-1">                           
+                                    <input type="file" class="form-control w-100" name="image" id="" required>
+                                </div>
+                                                            
+                            </div>
+                            <div class="d-flex justify-content-center align-item-center w-100 my-1">
+                                <button type="submit" class="btn btn-dark mb-2">Add Images</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-xl-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="active-member">
+                                <div class="table-responsive">
+                                    <table class="table table-xs">
+                                        <thead>
+                                            <tr>
+                                                <th>Title</th>                                           
+                                                <th>Delete</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for d in gallery %}
+                                            <tr>
+                                                <td>
+                                                    <img src="{{d.image.url}}"
+                                                        class="w-40px rounded-circle m-r-10" alt="">{{d.title}}
+                                                </td>                                            
+                                                <td><a href="{% url 'delgallery' d.id %}"><i class="mdi mdi-delete fa-2x"></i></a>
+                                                </td>
+                                            </tr>
+                                          {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'adminpannel/copywrite.html' %}
+</div>
+{% endblock body %}

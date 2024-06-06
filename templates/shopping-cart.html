@@ -1,0 +1,108 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load mathfilters %}
+
+{% block body %}
+
+<div class="offcanvas-overlay"></div>
+<!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- -->
+
+<!-- Page Title/Header Start -->
+<div class="page-title-section section" data-bg-image="/static/assets/images//banner/order.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+
+                <div class="page-title">
+                    <h1 class="title">Cart</h1>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item active">Cart</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page Title/Header End -->
+
+<!-- Shopping Cart Section Start -->
+<div class="section section-padding">
+    <div class="container">
+
+        <table class="cart-wishlist-table table">
+            <thead>
+                <tr>
+                    <th class="name" colspan="2">Product</th>
+                    <th class="price">Price</th>
+                    <th class="quantity">Quantity</th>
+                    <th class="subtotal">Total</th>
+                    <th class="remove">&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in product_in_cart %}
+                <form class="cart-form" action="{% url 'add_to_cart' %}" method="get" id="form{{p.uid}}">
+                    <tr>
+                        <td class="thumbnail"><a href="{% url 'product_detail' p.uid %}"><img
+                                    src="{{p.product_images.first.image.url}}" alt="cart-product-1"></a></td>
+                        <td class="name"> <a href="{% url 'product_detail' p.uid %}">{{p.product_name}}</a></td>
+                        <td class="price"><span>{{p.dis_price}}</span></td>
+                        <td class="quantity">
+                            <div class="product-quantity">
+                                <span class="qty-btn minus"><i class="ti-minus"></i></span>
+                                <input type="text" class="input-qty" value="{{p.quantity}}" name="quantity">
+                                <span class="qty-btn plus"><i class="ti-plus"></i></span>
+                            </div>
+                        </td>
+                        <input type="hidden" name="uid" value="{{p.uid}}">
+                        <td class="subtotal"><span>₹{{p.dis_price|mul:p.quantity}}</span></td>
+                        <td>
+                            <a onclick="document.getElementById('form{{p.uid}}').submit();"
+                                class="btn btn-dark btn-outline-hover-dark"><i class="fas fa-shopping-cart"></i>
+                                Update Quantity</a>
+                        </td>
+                        <td class="remove"><a href="{% url 'deletesessioncart' p.uid %}" class="btn">×</a></td>
+                    </tr>
+                </form>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="row justify-content-between mb-n3">
+            <div class="col-auto mb-3">
+                <div class="cart-coupon">
+                    <input type="text" placeholder="Enter your coupon code">
+                    <button class="btn"><i class="fas fa-gift"></i></button>
+                </div>
+            </div>
+            <div class="col-auto">
+                <a class="btn btn-light btn-hover-dark mr-3 mb-3" href="{% url 'shop' %}">Continue Shopping</a>
+
+            </div>
+        </div>
+
+        <div class="cart-totals mt-5">
+            <h2 class="title">Cart totals</h2>
+            <table>
+                <tbody>
+                    <tr class="subtotal">
+                        <th>Subtotal</th>
+                        <td><span class="amount">₹{{totalamount}}</span></td>
+                    </tr>
+                    <tr class="total">
+                        <th>Total</th>
+                        <td><strong><span class="amount">₹{{totalamount}}</span></strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            <a href="{% url 'checkout' %}" class="btn btn-dark btn-outline-hover-dark">Proceed to checkout</a>
+        </div>
+    </div>
+
+</div>
+{% include 'base/footer.html' %}
+<!-- JS
+============================================ -->
+
+{% endblock body %}

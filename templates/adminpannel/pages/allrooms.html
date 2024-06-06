@@ -1,0 +1,61 @@
+{% extends 'adminpannel/base.html' %}
+
+{% block body %}
+{% include 'adminpannel/loader.html' %}
+<div id="main-wrapper">
+    <!-- header -->
+    {% include 'adminpannel/header.html' %}
+    <!-- #/ header -->
+    <!-- sidebar -->
+    {% include 'adminpannel/sidebar.html' %}
+    <!-- #/ sidebar -->
+    <div class="content-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-xl-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="active-member">
+                                <div class="table-responsive">
+                                    <table class="table table-xs">
+                                        <thead>
+                                            <tr>
+                                                <th>Room Titld</th>
+                                                <th>Views</th>
+                                                <th>Locations</th>
+                                                <th>Status</th>
+                                                <th>Price</th>
+                                                <th>Views/Edit</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for room in rooms %}
+                                            <tr>
+                                                <td>
+                                                    <img src="{{room.roomimages.first.images.url}}"
+                                                        class="w-40px rounded-circle m-r-10" alt="">{{room.room_title}}
+                                                </td>
+                                                <td><span>125</span>
+                                                </td>
+                                                <td>{{room.locations}}</td>
+                                                <td><i class="fa fa-circle-o text-success f-s-12 m-r-10"></i> Active
+                                                </td>
+                                                <td><span>{{room.pricing}}</span>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                                                                   
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'adminpannel/copywrite.html' %}
+</div>
+{% endblock body %}

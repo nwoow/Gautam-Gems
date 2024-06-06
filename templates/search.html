@@ -1,0 +1,48 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block body %}
+
+<div class="container py-5">
+        
+        <div class="products row row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1">
+            {% for p in product %}
+            <div class="col">
+                <div class="product">
+                    <div class="product-thumb">
+                        <a href="{% url 'product_detail' p.slug %}" class="image">
+                            <span class="product-badges">
+                                <span class="onsale">-13%</span>
+                            </span>
+                            <img src="{{p.product_images.first.image.url}}" alt="Product Image">
+                            <img class="image-hover " src="{{p.product_images.first.image.url}}"
+                                alt="Product Image">
+                        </a>
+                        <a href="wishlist.html" class="add-to-wishlist hintT-left" data-hint="Add to wishlist"><i
+                                class="far fa-heart"></i></a>
+                    </div>
+                    <div class="product-info">
+                        <h6 class="title"><a href="{% url 'product_detail' p.slug %}">{{p.product_name}}</a></h6>
+                        <span class="price">
+                            <span class="old">₹{{p.mrp_price}}</span>
+                            <span class="new">₹{{p.dis_price}}</span>
+                        </span>
+                        <div class="product-buttons">
+                            <a href="#quickViewModal" data-bs-toggle="modal" class="product-button hintT-top"
+                                data-hint="Quick View"><i class="fas fa-search"></i></a>
+                            <a href="{% url 'add_to_cart' %}?uid={{p.uid}}&quantity=1" class="product-button hintT-top" data-hint="Add to Cart"><i
+                                    class="fas fa-shopping-cart"></i></a>
+                            <a href="{% url 'add_to_wishlist' p.uid %}" class="product-button hintT-top" data-hint="Compare"><i
+                                    class="fas fa-heart"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>           
+            {% endfor %}
+        </div>
+
+</div>
+
+
+{% include 'base/footer.html' %}
+{% endblock body %}

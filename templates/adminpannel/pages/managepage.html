@@ -1,0 +1,145 @@
+{% extends 'adminpannel/base.html' %}
+
+{% block body %}
+{% include 'adminpannel/loader.html' %}
+<div id="main-wrapper">
+    <!-- header -->
+    {% include 'adminpannel/header.html' %}
+    <!-- #/ header -->
+    <!-- sidebar -->
+    {% include 'adminpannel/sidebar.html' %}
+    <!-- #/ sidebar -->
+    <div class="content-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-xl-12">
+                    <div class="d-flex justify-content-end">                     
+                                <div class="card text-center">
+                                    <a target="_blank" href="{% url 'searchproduct' %} " class="btn btn-info">Search Products</a>
+                                </div>                                                       
+                    </div>
+                
+                </div> 
+                
+                <div class="col-lg-4 col-xl-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-body">
+                                <div class="text-center">
+                                    Add Best Seller <br>
+                                    <small class="text-danger">Min:5 & Max:20 Products</small>
+                                </div>
+                                <hr>
+                                <form action=""  method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class=" d-flex  align-items-end">     
+                                        <div class="mx-1">
+                                            <input type="text" class="form-control" placeholder="Product UID" name="uid" required >
+                                            <input type="hidden" class="form-control my-2" value="bestsaler" name="addtype">
+                                        </div>
+                                        <div class="d-flex align-items-end mx-1">                        
+                                            <button style="height: 40px;" type="submit" class="btn btn-dark">Submit</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <hr>
+                                {% for p in bestsaler %}
+                                <span>{{p.product.uid}}</span><br>
+                                <p>{{p.product.product_name}}</p>
+                                <span>Price : {{p.product.dis_price}}</span><br> 
+                               <div class="text-center">
+                                <a href="{% url 'delmanagepage' %}?uid={{p.uid}}&addtype=bestsaler" class="btn btn-danger">Delete</a>
+                               </div>
+                               <hr>
+
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                
+                </div> 
+                <div class="col-lg-4 col-xl-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-body">
+                                <div class="text-center">
+                                    Add Hot Seller <br>
+                                    <small class="text-danger">Adds only 4 products</small>
+                                </div>
+                                <hr>
+                                <form action=""  method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class=" d-flex  align-items-end">     
+                                        <div class="mx-1">
+                                            <input type="text" class="form-control" placeholder="Product UID" name="uid" required>
+                                            <input type="hidden" class="form-control my-2" value="hotsaler" name="addtype">
+                                           
+                                        </div>
+                                        <div class="d-flex align-items-end mx-1">                        
+                                            <button style="height: 40px;" type="submit" class="btn btn-dark">Submit</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <hr>
+                                {% for p in hotsaler %}
+                                <span>{{p.product.uid}}</span><br>
+                                <p>{{p.product.product_name}}</p>
+                                <span>Price : {{p.product.dis_price}}</span><br> 
+                               <div class="text-center">
+                                <a href="{% url 'delmanagepage' %}?uid={{p.uid}}&addtype=hotsaler" class="btn btn-danger">Delete</a>
+                               </div>
+                               <hr>
+
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                
+                </div> 
+                <div class="col-lg-4 col-xl-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-body">
+                                <div class="text-center">
+                                    Add Deals of the day
+                                </div>
+                                <hr>
+                                <form action=""  method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="">     
+                                        <div class="mx-1">
+                                            <input type="text" class="form-control my-2" placeholder="Product UID" name="uid" required>
+                                            <input type="text" class="form-control my-2" placeholder="Offer Price" name="dis_price" required>
+                                            <input type="datetime-local" class="form-control my-2" name="dis_datetime" required>
+                                            <input type="hidden" class="form-control my-2" value="dealoftheday" name="addtype">                                          
+                                        </div>
+                                        <div class="text-center mx-1">                        
+                                            <button style="height: 40px;" type="submit" class="btn btn-dark">Submit</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <hr>
+                                {% for p in dealoftheday %}
+                                <span>{{p.product.uid}}</span><br>
+                                <img style="width: 100%;" src="{{p.product.product_images.first.image.url}}" alt="">
+                                <p>{{p.product.product_name}}</p>
+                                <span>Offer Date : {{p.offer_date}}</span> <br>
+                                <span>Price : {{p.product.dis_price}}</span><br>
+                                <span>Offer Price: {{p.sale_discount_price}}</span>
+                               <div class="text-center">
+                                <a href="{% url 'delmanagepage' %}?uid={{p.uid}}&addtype=dealoftheday" class="btn btn-danger">Delete</a>
+                               </div>
+                               <hr>
+                               {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                
+                </div> 
+            </div>
+        </div>
+    </div>
+
+    {% include 'adminpannel/copywrite.html' %}
+</div>
+{% endblock body %}

@@ -1,0 +1,151 @@
+{% extends 'adminpannel/base.html' %}
+
+{% block body %}
+{% include 'adminpannel/loader.html' %}
+<div id="main-wrapper">
+    <!-- header -->
+    {% include 'adminpannel/header.html' %}
+    <!-- #/ header -->
+    <!-- sidebar -->
+    {% include 'adminpannel/sidebar.html' %}
+    <!-- #/ sidebar -->
+    <div class="content-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-xl-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="text-center">
+                                Update Product
+                            </div>
+                            <hr>
+                            <form action="" method="post">
+                                {% csrf_token %}
+                                <div>
+                                    <label for="">Product Title</label>
+                                    <input type="text" class="form-control" name="title" value="{{product.product_name}}">
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    
+                                    <div class="px-2 col-md-6">
+                                        <label for="">Select Sub Category</label>
+                                        <select name="subcategory" id="" class="form-control">
+                                            <option value="{{product.sub_category.uid}}">{{product.sub_category.category_name}}</option>
+                                            {% for c in sub_category %}
+                                            <option value="{{c.uid}}">{{c.category_name}}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <!-- <input type="text" class="form-control" name="subcategory"> -->
+                                    </div>
+                                    <div class="px-2 col-md-6">
+                                        <label for="">Select Brands</label>
+                                        <select name="brands" id="" class="form-control">
+                                            <option value="{{product.brands.uid}}">{{product.brands.brands_name}}</option>
+                                            {% for c in brands %}
+                                            <option value="{{c.uid}}">{{c.brands_name}}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <!-- <input type="text" class="form-control" name="subcategory"> -->
+                                    </div>
+                                    <div class="px-2 col-md-6">
+                                        <label for="">Mrp Price</label>
+                                        <input type="text" class="form-control" name="mrp_price" value="{{product.mrp_price}}">
+                                    </div>
+                                    <div class="px-2 col-md-6">
+                                        <label for="">Discounted Price</label>
+                                        <input type="text" class="form-control" name="dis_price" value="{{product.dis_price}}">
+                                    </div>
+                                    
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="mx-2 col-md-2">
+                                        <label for="">Length (cm)</label>
+                                        <input type="text" value="{{product.length}}" class="form-control" name="length">
+                                    </div>
+                                    <div class="mx-2 col-md-2">
+                                        <label for="">Breadth (cm)</label>
+                                        <input type="text" value="{{product.breadth}}" class="form-control" name="breadth">
+                                    </div>
+                                    <div class="mx-2 col-md-2">
+                                        <label for="">Height (cm)</label>
+                                        <input type="text" value="{{product.height}}" class="form-control" name="height">
+                                    </div>
+                                    <div class="mx-2 col-md-3">
+                                        <label for="">Weight (gram)</label>
+                                        <input type="text" value="{{product.weight}}" class="form-control" name="weight">
+                                    </div>
+                                </div>
+                                <hr>
+
+            
+                                <div>
+                                    <label for="">Descriptions</label>
+                                    <textarea class="w-100" name="desc" id="editor" cols="30" rows="5"></textarea>
+                                </div>
+                                <hr>  
+                                <script>
+                                    document.getElementById('editor').value = "{{product.product_description|safe}}"
+                                </script>
+                                <div class="d-flex justify-content-center align-item-center w-100 my-1">
+                                    <button type="submit" class="btn btn-dark mb-2">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-6 col-xl-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-around align-items-center">
+                                    <div>
+                                        Add Images
+                                    </div>
+                                    <div>
+                                        Size of Images: 570 x 700
+                                    </div>
+                                </div>
+                                <hr>
+                                <form action="{% url 'addproductimage' product.uid %}"  method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class=" d-flex  align-items-end">     
+                                        <div class="mx-2">
+                                            <input type="file" class="form-control" name="image">
+                                        </div>
+                                        <div class="d-flex align-items-end mx-2">                        
+                                            <button style="height: 40px;" type="submit" class="btn btn-dark">Submit</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                {% for p in product.product_images.all %}
+                                <div class="col-md-6 p-2">
+                                    <img style="width: 100%;" src="{{p.image.url}}" alt="">
+
+                                    <div class="text-center my-2">
+                                        <a href="{% url 'delproductimage' p.uid %}" class="btn btn-danger">Delete</a>
+                                    </div>
+                                </div>
+                                
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
+
+    {% include 'adminpannel/copywrite.html' %}
+</div>
+{% endblock body %}

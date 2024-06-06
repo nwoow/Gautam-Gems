@@ -1,0 +1,576 @@
+<!-- Topbar Section Start -->
+<div class="topbar-section section">
+    <div class="container">
+        <div class="row justify-content-between align-items-center">
+            <div class="col-md-auto col-12">
+                <p class="text-white text-center text-md-left my-2">Free shipping for orders over ₹2000 !</p>
+
+            </div>
+
+            <div class="col-auto d-none d-md-block">
+                <div class="topbar-menu">
+                    <ul>
+                        <li><a href="https://www.facebook.com/" class="text-white"><i class="fab fa-facebook-square fa-lg"></i>Facebook</a>
+                        </li>
+                        <li><a href="https://www.instagram.com/" class="text-white"><i class="fab fa-instagram fa-lg"></i>Instagram</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Header Tools Start -->
+            <div class="col-auto d-none d-md-block">
+                <div class="header-tools justify-content-end">
+                    <div class="header-login">
+                        {% if user.is_authenticated %}
+                        <a href="{% url 'myaccount' %}"><i class="far fa-user"></i></a>
+                        {% else %}
+                        <a href="{% url 'userlogin' %}" title="User Login"><i class="far fa-user"></i></a>
+                        {% endif %}
+                    </div>
+                    <div class="header-wishlist">
+                        <a href="#offcanvas-wishlist" class="offcanvas-toggle" title="Wishlist"><span
+                                class="wishlist-count">{{wishlist_count}}</span><i class="far fa-heart"></i></a>
+                    </div>
+                    <div class="header-cart">
+                        <a href="#offcanvas-cart" class="offcanvas-toggle" title="Cart"><span
+                                class="cart-count">{{cart_count}}</span><i class="fas fa-shopping-cart"></i></a>
+                    </div>
+                </div>
+            </div>
+            <!-- Header Tools End -->
+        </div>
+    </div>
+</div>
+<!-- Topbar Section End -->
+
+<!-- Header Section Start -->
+<div class="header-section section section-fluid  d-none d-xl-block">
+    <div class="container">
+        <div class="row align-items-center">
+
+            <!-- Header Logo Start -->
+            <div class="col-auto">
+                <div class="header-logo">
+                    <a href="/"><img src="{{company_logo}}" width="180" height="50" alt="Gautam Gems Logo"></a>
+                </div>
+            </div>
+            <!-- Header Logo End -->
+
+            <!-- Search Start -->
+            <div class="col-auto me-auto">
+                <nav class="site-main-menu site-main-menu-left menu-height-100 justify-content-center">
+                    <ul>
+                        <li class="has-children"><a href="/"><span class="menu-text">New Arrivals &nbsp;
+                                </span></a>
+                        </li>
+                        {% for cat in categories|slice:":3" %}
+                        <li class="has-children"><a href="#" class="mega-a"><span
+                                    class="menu-text">{{cat.category_name}}
+                                    &nbsp;</span></a>
+                            <ul class="sub-menu mega-menu">
+                                <li>
+                                    <ul>
+                                        {% for subcat in cat.sub_category.all|slice:":15" %}
+                                        <li>
+                                            <img class="mmh_img " src="{{subcat.category_image.url}}" width="240px"
+                                                height="160px" alt="German Silver Handicrafts">
+                                            <a href="{% url 'shop' %}?subcategory={{subcat.category_name}}"><span
+                                                    class="menu-text">{{subcat.category_name}}</span></a>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                                <li>
+                                    <ul>
+                                        {% for subcat in cat.sub_category.all|slice:"15:20" %}
+                                        <li>
+                                            <img class="mmh_img " src="{{subcat.category_image.url}}" width="240px"
+                                                height="160px" alt="German Silver Handicrafts">
+                                            <a href="{% url 'shop' %}?subcategory={{subcat.category_name}}"><span
+                                                    class="menu-text">{{subcat.category_name}}</span></a>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                                <li>
+                                    <ul>
+                                        {% for subcat in cat.sub_category.all|slice:"20:25" %}
+                                        <li>
+                                            <img class="mmh_img " src="{{subcat.category_image.url}}" width="240px"
+                                                height="160px" alt="German Silver Handicrafts">
+                                            <a href="{% url 'shop' %}?subcategory={{subcat.category_name}}"><span
+                                                    class="menu-text">{{subcat.category_name}}</span></a>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#" class="menu-banner"><img src="{{cat.category_image.url}}" width="242"
+                                            height="235" alt="Home Menu Banner"></a>
+                                </li>
+                            </ul>
+                        </li>
+                        {% endfor %}
+                        <li class="has-children"><a href="{% url 'blog' %}"><span class="menu-text">Blogs
+                                    &nbsp;</span></a>
+                        </li>
+                        <li class="has-children"><a href="{% url 'contact' %}"><span class="menu-text">Contact Us
+                                    &nbsp;</span></a>
+
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <!-- Search End -->
+
+            <!-- Search Start -->
+            <div class="col-auto d-none d-xl-block p-0">
+                <div class="header2-search">
+                    <form action="{% url 'search' %}">
+                        {% csrf_token %}
+                        <div id="autocomplete" class="autocomplete">
+                            <input type="text" placeholder="Search..." name="q">
+                            <ul class="autocomplete-result-list"></ul>
+                            <button class="btn" type="submit"><i class="fas fa-search"></i></button>
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>
+            <!-- Search End -->
+        </div>
+        
+    </div>
+
+</div>
+<!-- Header Section End -->
+
+<!-- Sticky Header Section Start -->
+<div class="sticky-header section section-fluid d-none d-xl-block">
+    <div class="container">
+        <div class="row align-items-center">
+
+            <!-- Header Logo Start -->
+            <div class="col-xl-auto col">
+                <div class="header-logo">
+                    <a href="/"><img src="{{company_logo}}" width="180" height="50" alt="Gautam Gems Logo"></a>
+                </div>
+            </div>
+            <!-- Header Logo End -->
+
+            <!-- Search Start -->
+            <div class="col-auto me-auto">
+                <nav class="site-main-menu site-main-menu-left menu-height-100 justify-content-center">
+                    <ul>
+                        <li class="has-children"><a href="/"><span class="menu-text">New Arrivals &nbsp; </span></a>
+                        </li>
+
+                        {% for cat in categories|slice:":3" %}
+                        <li class="has-children"><a href="#" class="mega-a"><span
+                                    class="menu-text">{{cat.category_name}}
+                                    &nbsp;</span></a>
+                            <ul class="sub-menu mega-menu">
+                                <li>
+                                    <ul>
+                                        {% for subcat in cat.sub_category.all|slice:":5" %}
+                                        <li> <img class="mmh_img " src="{{subcat.category_image.url}}"
+                                                alt="Metal Handicrafts"> <a href="{% url 'shop' %}?subcategory={{subcat.category_name}}"><span
+                                                    class="menu-text">{{subcat.category_name}}</span></a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                                <li>
+                                    <ul>
+                                        {% for subcat in cat.sub_category.all|slice:"5:10" %}
+                                        <li> <img class="mmh_img " src="{{subcat.category_image.url}}"
+                                                alt="Metal Handicrafts"> <a href="{% url 'shop' %}?subcategory={{subcat.category_name}}"><span
+                                                    class="menu-text">{{subcat.category_name}}</span></a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                                <li>
+                                    <ul>
+                                        {% for subcat in cat.sub_category.all|slice:"10:15" %}
+                                        <li> <img class="mmh_img " src="{{subcat.category_image.url}}"
+                                                alt="Metal Handicrafts"> <a href="{% url 'shop' %}?subcategory={{subcat.category_name}}"><span
+                                                    class="menu-text">{{subcat.category_name}}</span></a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#" class="menu-banner"><img src="{{cat.category_image.url}}"
+                                            alt="Home Menu Banner"></a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        {% endfor %}
+                        <li class="has-children"><a href="{% url 'blog' %}"><span class="menu-text">Blogs
+                                    &nbsp;</span></a>
+                        </li>
+                        <li class="has-children"><a href="{% url 'contact' %}"><span class="menu-text">Contact Us
+                                    &nbsp;</span></a>
+
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <!-- Search End -->
+            <!-- Search Start -->
+            <div class="col-auto d-none d-xl-block">
+                <div class="header2-search">
+                   
+                </div>
+            </div>
+            <!-- Search End -->
+
+            <!-- Header Tools Start -->
+            <div class="col-auto">
+                <div class="header-tools justify-content-end">
+                    <div class="header-login d-none d-sm-block">
+                        {% if user.is_authenticated %}
+                        <a href="{% url 'myaccount' %}"><i class="far fa-user" style="color: #412500;"></i></a>
+                        {% else %}
+                        <a href="{% url 'userlogin' %}"><i class="far fa-user" style="color: #412500;"></i></a>
+                        {% endif %}
+                    </div>
+                    <div class="header-search d-none d-sm-block d-xl-none">
+                        <a href="#offcanvas-search" class="offcanvas-toggle"><i class="fas fa-search"></i></a>
+                    </div>
+                    <div class="header-wishlist d-none d-sm-block">
+                        <a href="#offcanvas-wishlist" class="offcanvas-toggle"><span
+                                class="wishlist-count">{{wishlist_count}}</span><i class="far fa-heart"
+                                style="color: #412500;"></i></a>
+                    </div>
+                    <div class="header-cart">
+                        <a href="#offcanvas-cart" class="offcanvas-toggle"><span
+                                class="cart-count">{{cart_count}}</span><i class="fas fa-shopping-cart"
+                                style="color: #412500;"></i></a>
+                    </div>
+                    <div class="mobile-menu-toggle d-xl-none">
+                        <a href="#" class="offcanvas-toggle">
+                            <svg viewBox="0 0 800 600">
+                                <path
+                                    d="M300,220 C300,220 520,220 540,220 C740,220 640,540 520,420 C440,340 300,200 300,200"
+                                    class="top"></path>
+                                <path d="M300,320 L540,320" class="middle"></path>
+                                <path
+                                    d="M300,210 C300,210 520,210 540,210 C740,210 640,530 520,410 C440,330 300,190 300,190"
+                                    class="bottom" transform="translate(480, 320) scale(1, -1) translate(-480, -318) ">
+                                </path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- Header Tools End -->
+
+        </div>
+    </div>
+
+</div>
+<!-- Sticky Header Section End -->
+<!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- -->
+<!-- Mobile Header Section Start -->
+<div class="mobile-header bg-white section d-xl-none">
+    <div class="container">
+        <div class="row align-items-center">
+
+            <!-- Header Logo Start -->
+            <div class="col">
+                <div class="header-logo">
+                    <a href="/"><img src="{{company_logo}}" alt="Gautam Gems Logo" width="150px"></a>
+                </div>
+            </div>
+            <!-- Header Logo End -->
+
+            <!-- Header Tools Start -->
+            <div class="col-auto">
+                <div class="header-tools justify-content-end">
+                    <div class="header-login d-none d-sm-block">
+                        {% if user.is_authenticated %}
+                        <a href="{% url 'myaccount' %}"><i class="far fa-user" style="color: #412500;"></i></a>
+                        {% else %}
+                        <a href="{% url 'userlogin' %}"><i class="far fa-user" style="color: #412500;"></i></a>
+                        {% endif %}
+                    </div>
+                    <div class="header-search d-none d-sm-block">
+                        <a href="#offcanvas-search" class="offcanvas-toggle"><i class="fas fa-search"
+                                style="color: #412500;"></i></a>
+                    </div>
+                    <div class="header-wishlist d-none d-sm-block">
+                        <a href="#offcanvas-wishlist" class="offcanvas-toggle"><span
+                                class="wishlist-count">{{wishlist_count}}</span><i class="far fa-heart"
+                                style="color: #412500;"></i></a>
+                    </div>
+                    <div class="header-cart">
+                        <a href="#offcanvas-cart" class="offcanvas-toggle"><span
+                                class="cart-count">{{cart_count}}</span><i class="fas fa-shopping-cart"
+                                style="color: #412500;"></i></a>
+                    </div>
+                    <div class="mobile-menu-toggle">
+                        <a href="#offcanvas-mobile-menu" class="offcanvas-toggle">
+                            <svg viewBox="0 0 800 600">
+                                <path
+                                    d="M300,220 C300,220 520,220 540,220 C740,220 640,540 520,420 C440,340 300,200 300,200"
+                                    class="top"></path>
+                                <path d="M300,320 L540,320" class="middle"></path>
+                                <path
+                                    d="M300,210 C300,210 520,210 540,210 C740,210 640,530 520,410 C440,330 300,190 300,190"
+                                    class="bottom" transform="translate(480, 320) scale(1, -1) translate(-480, -318) ">
+                                </path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- Header Tools End -->
+
+        </div>
+    </div>
+</div>
+<!-- Mobile Header Section End -->
+
+<!-- Sticky Mobile Header Section Start -->
+<div class="mobile-header sticky-header bg-white section d-xl-none">
+    <div class="container">
+        <div class="row align-items-center">
+
+            <!-- Header Logo Start -->
+            <div class="col">
+                <div class="header-logo">
+                    <a href="/"><img src="{{company_logo}}" alt="Gautam Gems Logo" width="150"></a>
+                </div>
+            </div>
+            <!-- Header Logo End -->
+
+            <!-- Header Tools Start -->
+            <div class="col-auto">
+                <div class="header-tools justify-content-end">
+                    <div class="header-login d-none d-sm-block">
+                        {% if user.is_authenticated %}
+                        <a href="{% url 'myaccount' %}"><i class="far fa-user" style="color: #412500;"></i></a>
+                        {% else %}
+                        <a href="{% url 'userlogin' %}"><i class="far fa-user" style="color: #412500;"></i></a>
+                        {% endif %}
+                    </div>
+                    <div class="header-wishlist d-none d-sm-block">
+                        <a href="#offcanvas-wishlist" class="offcanvas-toggle"><span
+                                class="wishlist-count">{{wishlist_count}}</span><i class="far fa-heart"
+                                style="color: #412500;"></i></a>
+                    </div>
+                    <div class="header-cart">
+                        <a href="#offcanvas-cart" class="offcanvas-toggle"><span
+                                class="cart-count">{{cart_count}}</span><i class="fas fa-shopping-cart"
+                                style="color: #412500;"></i></a>
+                    </div>
+                    <div class="mobile-menu-toggle">
+                        <a href="#offcanvas-mobile-menu" class="offcanvas-toggle">
+                            <svg viewBox="0 0 800 600">
+                                <path
+                                    d="M300,220 C300,220 520,220 540,220 C740,220 640,540 520,420 C440,340 300,200 300,200"
+                                    class="top"></path>
+                                <path d="M300,320 L540,320" class="middle"></path>
+                                <path
+                                    d="M300,210 C300,210 520,210 540,210 C740,210 640,530 520,410 C440,330 300,190 300,190"
+                                    class="bottom" transform="translate(480, 320) scale(1, -1) translate(-480, -318) ">
+                                </path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- Header Tools End -->
+
+        </div>
+    </div>
+</div>
+<!-- Sticky Mobile Header Section End -->
+
+
+<!-- OffCanvas Wishlist Start -->
+<div id="offcanvas-wishlist" class="offcanvas offcanvas-wishlist">
+    <div class="inner">
+        <div class="head">
+            <span class="title">Wishlist</span>
+            <button class="offcanvas-close">×</button>
+        </div>
+        <div class="body customScroll">
+            <ul class="minicart-product-list">
+                {% for p in product_in_wishlist %}
+                <li>
+                    <a href="{% url 'product_detail' p.slug %}" class="image"><img
+                            src="{{p.product_images.first.image.url}}" alt="Cart product Image"></a>
+                    <div class="content">
+                        <a href="{% url 'product_detail' p.slug %}" class="title">{{p.product_name}}</a>
+                        <span class="quantity-price">{{p.quantity}} x <span class="amount">₹{{p.dis_price}}</span></span>
+                        <a href="{% url 'deletesessionwishlist' p.uid %}" class="remove">×</a>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="foot">
+            <div class="buttons">
+                <a href="{% url 'wishlist' %}" class="btn btn-dark btn-hover-primary">view wishlist</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- OffCanvas Wishlist End -->
+
+<!-- OffCanvas Cart Start -->
+<div id="offcanvas-cart" class="offcanvas offcanvas-cart">
+    <div class="inner">
+        <div class="head">
+            <span class="title">Cart</span>
+            <button class="offcanvas-close">×</button>
+        </div>
+        <div class="body customScroll">
+            <ul class="minicart-product-list">
+                {% for p in product_in_cart %}
+                <li>
+                    <a href="{% url 'product_detail' p.slug %}" class="image"><img
+                            src="{{p.product_images.first.image.url}}" alt="Cart product Image"></a>
+                    <div class="content">
+                        <a href="{% url 'product_detail' p.slug %}" class="title">{{p.product_name}}</a>
+                        <span class="quantity-price">{{p.quantity}} x <span class="amount">₹{{p.dis_price}}</span></span>
+                        <a href="{% url 'deletesessioncart' p.uid %}" class="remove">×</a>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="foot">
+            <div class="sub-total">
+                <strong>Subtotal :</strong>
+                <span class="amount">₹{{totalamount}}</span>
+            </div>
+            <div class="buttons">
+                <a href="{% url 'shopping_cart' %}" class="btn btn-dark btn-hover-primary">view cart</a>
+                <a href="{% url 'checkout' %}" class="btn btn-outline-dark">checkout</a>
+            </div>
+            <p class="minicart-message">Free Shipping on All Orders Over ₹100!</p>
+        </div>
+    </div>
+</div>
+<!-- OffCanvas Cart End -->
+
+<!-- OffCanvas Search Start -->
+<div id="offcanvas-mobile-menu" class="offcanvas offcanvas-mobile-menu">
+    <div class="inner customScroll">
+        <div class="offcanvas-menu-search-form">
+            <form action="#">
+                <input type="text" placeholder="Search...">
+                <button><i class="fas fa-search"></i></button>
+            </form>
+        </div>
+        <div class="offcanvas-menu">
+            <ul>
+                <li><a href="/"><span class="menu-text">New Arrivals &nbsp;</span></a>
+                </li>
+                {% for cat in categories|slice:":3" %}
+                <li><a href="#"><span class="menu-text">{{cat.category_name}} &nbsp;</span></a>
+                    <ul class="sub-menu">
+                        <li>
+                            <a href="#"><span class="menu-text">Items-1</span></a>
+                            {% for subcat in cat.sub_category.all|slice:":5" %}
+                            <ul class="sub-menu">
+                                <li><a href="{% url 'shop' %}?subcategory={{subcat.category_name}}"><span
+                                            class="menu-text">{{subcat.category_name}}</span></a>
+                                </li>
+                            </ul>
+                            {% endfor %}
+                        </li>
+                        <li>
+                            <a href="#"><span class="menu-text">Items-2</span></a>
+                            {% for subcat in cat.sub_category.all|slice:"5:10" %}
+                            <ul class="sub-menu">
+                                <li><a href="{% url 'shop' %}?subcategory={{subcat.category_name}}"><span
+                                            class="menu-text">{{subcat.category_name}}</span></a>
+                                </li>
+                            </ul>
+                            {% endfor %}
+                        </li>
+                        <li>
+                            <a href="#"><span class="menu-text">Items-3</span></a>
+                            {% for subcat in cat.sub_category.all|slice:"10:15" %}
+                            <ul class="sub-menu">
+                                <li><a href="{% url 'shop' %}?subcategory={{subcat.category_name}}"><span
+                                            class="menu-text">{{subcat.category_name}}</span></a>
+                                </li>
+                            </ul>
+                            {% endfor %}
+                        </li>
+                    </ul>
+                </li>
+
+                {% endfor %}
+                <li><a href="{% url 'blog' %}"><span class="menu-text">Blogs &nbsp;</span></a>
+                </li>
+                <li><a href="{% url 'contact' %}"><span class="menu-text">Contact Us &nbsp;</span></a>
+                </li>
+            </ul>
+        </div>
+        <div class="offcanvas-buttons">
+            <div class="header-tools">
+                <div class="header-login">
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'myaccount' %}"><i class="far fa-user" style="color: #412500;"></i></a>
+                    {% else %}
+                    <a href="{% url 'userlogin' %}"><i class="far fa-user" style="color: #412500;"></i></a>
+                    {% endif %}
+                </div>
+                <div class="header-wishlist">
+                    <a href="{% url 'wishlist' %}"><span>{{wishlist_count}}</span><i class="far fa-heart"
+                            style="color: #412500;"></i></a>
+                </div>
+                <div class="header-cart">
+                    <a href="{% url 'shopping_cart' %}"><span class="cart-count">{{cart_count}}</span><i
+                            class="fas fa-shopping-cart" style="color: #412500;"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="offcanvas-social">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+    </div>
+</div>
+<!-- OffCanvas Search End -->
+<div class="offcanvas-overlay"></div>
+<!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- -->
+
+
+<script>
+    new Autocomplete("#autocomplete", {
+        search: input => {
+            console.log('function run')
+            const url = `/get-search?q=${input}`
+            return new Promise(resolve => {
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        resolve(data.payload)
+                        console.log(data.payload)
+                    })
+            })
+        },
+        renderResult: (result, props) => {
+            console.log(props)
+            let group = ""
+            if (result.index % 3 == 0) {
+                group = '<li class="group">Group</li>'
+            }
+            return `
+            ${group} <li ${props}
+           <div> ${result.name}</div>
+            </li>
+            `
+        },
+        getResultValue: result => result.name
+    });
+
+</script>

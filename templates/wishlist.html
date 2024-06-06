@@ -1,0 +1,74 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block body %}
+<div class="offcanvas-overlay"></div>
+<!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- -->
+
+
+<!-- Page Title/Header Start -->
+<div class="page-title-section section" data-bg-image="/static/assets/images//banner/order.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+
+                <div class="page-title">
+                    <h1 class="title">Wishlist</h1>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item active">Wishlist</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page Title/Header End -->
+
+<!-- Wishlist Section Start -->
+<div class="section section-padding">
+    <div class="container">
+        <form class="cart-form" action="#">
+
+            <table class="cart-wishlist-table table">
+                <thead>
+                    <tr>
+                        <th class="name" colspan="2">Product</th>
+                        <th class="price">Unit Price</th>
+                        <th class="add-to-cart">&nbsp;</th>
+                        <th class="remove">&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in product_in_wishlist %}
+                    <tr>
+                        <td class="thumbnail"><a href="{% url 'product_detail' p.slug %}"><img
+                                    src="{{p.product_images.first.image.url}}" alt="wishlist-product-1"></a>
+                        </td>
+                        <td class="name"> <a href="{% url 'product_detail' p.slug %}">{{p.product_name}}</a></td>
+                        <td class="price"><span>₹{{p.dis_price}}</span></td>
+                        <td class="add-to-cart"><a href="{% url 'add_to_cart' p.uid %}"
+                                class="btn btn-light btn-hover-dark"><i class="fas fa-shopping-cart mr-2"></i>Add to
+                                Cart</a></td>
+                        <td class="remove"><a href="{% url 'deletesessionwishlist' p.uid %}" class="btn">×</a></td>
+                    </tr>
+                    {% empty %}
+                    <h3>No Product in Wishlist</h3>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="col text-center mb-n3">
+                    <a class="btn btn-light btn-hover-dark mr-3 mb-3" href="shop.html">Continue Shopping</a>
+                    <a class="btn btn-dark btn-outline-hover-dark mb-3" href="shopping-cart.html">View Cart</a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+<!-- Wishlist Section End -->
+
+{% include 'base/footer.html' %}
+{% endblock %}

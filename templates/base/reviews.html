@@ -1,0 +1,10 @@
+
+
+<div class="single-product-reviews" style="margin-bottom:0px;">
+    <i class="{% if average_rating >= 1 %}fas fa-star {% elif average_rating >= 0.5 %}fas fa-star-half-alt  {% else %}far fa-star{% endif %} active"></i>
+    <i class="{% if average_rating >= 2 %}fas fa-star {% elif average_rating >= 1.5 %}fas fa-star-half-alt  {% else %}far fa-star{% endif %} active"></i>
+    <i class="{% if average_rating >= 3 %}fas fa-star {% elif average_rating >= 2.5 %}fas fa-star-half-alt  {% else %}far fa-star{% endif %} active"></i>
+    <i class="{% if average_rating >= 4 %}fas fa-star {% elif average_rating >= 3.5 %}fas fa-star-half-alt  {% else %}far fa-star{% endif %} active"></i>
+    <i class="{% if average_rating >= 5 %}fas fa-star {% elif average_rating >= 4.5 %}fas fa-star-half-alt  {% else %}far fa-star {% endif %} active"></i>
+    <a class="review-link" href="#">({{total_reviews}} reviews)</a>
+</div>

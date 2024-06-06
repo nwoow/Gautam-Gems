@@ -1,0 +1,853 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block body %}
+
+
+<!-- Slider main container Start -->
+<div class="home1-slider swiper-container">
+    <div class="swiper-wrapper">
+        <div class="home1-slide-item swiper-slide" data-swiper-autoplay="5000"
+            data-bg-image="/static/assets/images/banner/b1.jpg">
+            <!-- <div class="home1-slide1-content">
+                <span class="bg"></span>
+                <span class="slide-border"></span>
+                <span class="icon"><img src="/static/assets/images/slider/home1/slide-1-1.webp" alt="Slide Icon"></span>
+                <h2 class="title">Handicraft Shop</h2>
+                <h3 class="sub-title">Just for you</h3>
+                <div class="link"><a href="{% url 'shop' %}">shop now</a></div>
+            </div> -->
+        </div>
+        <div class="home1-slide-item swiper-slide" data-swiper-autoplay="5000"
+            data-bg-image="/static/assets/images/banner/b2.jpg">
+            <!-- <div class="home1-slide2-content">
+                <span class="bg" data-bg-image="/static/assets/images/slider/home1/slide-2-1.webp"></span>
+                <span class="slide-border"></span>
+                <span class="icon">
+                    <img src="/static/assets/images/slider/home1/slide-2-2.webp" alt="Slide Icon">
+                    <img src="/static/assets/images/slider/home1/slide-2-3.webp" alt="Slide Icon">
+                </span>
+                <h2 class="title">Newly arrived</h2>
+                <h3 class="sub-title">Sale up to <br>10%</h3>
+                <div class="link"><a href="{% url 'shop' %}">shop now</a></div>
+            </div> -->
+        </div>
+    </div>
+    <div class="home1-slider-prev swiper-button-prev"><i class="ti-angle-left"></i></div>
+    <div class="home1-slider-next swiper-button-next"><i class="ti-angle-right"></i></div>
+</div>
+<!-- Slider main container End -->
+
+<!-- Category Banner Section Start -->
+<div class="section section-fluid section-padding pt-0 mt-5">
+    <div class="container">
+        <div class="category-banner1-carousel">
+            {% for cat in categories %}
+            <div class="col">
+                <div class="category-banner1">
+                    <div class="inner">
+                        <a href="{% url 'shop' %}" class="image"><img src="{{cat.category_image.url}}" alt="images"
+                                width="440" height="234"></a>
+                        <div class="content">
+                            <h3 class="title">
+                                <a href="{% url 'shop' %}">{{cat.category_name}}</a>
+                                <span class="number">{{cat.sub_category.all.count}}</span>
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<!-- Category Banner Section End -->
+
+
+<!-- Product Section Start -->
+<div class="section section-padding">
+    <div class="container">
+
+        <div class="row learts-mb-50">
+            <div class="col">
+                <!-- Section Title Start -->
+                <div class="section-title text-center mb-0">
+                    <!-- <h3 class="sub-title">Just for you</h3> -->
+                    <h2 class="title title-icon-both">Making & crafting</h2>
+                </div>
+                <!-- Section Title End -->
+            </div>
+        </div>
+
+        <!-- Product Tab List Start -->
+        <div class="row learts-mb-40">
+            <div class="col">
+                <ul class="nav text-uppercase justify-content-center mx-n1 mb-n2 product-tab-list proo-tab">
+                    <li class="nav-item mx-1 mb-2"><a href="#product-all" data-bs-toggle="tab"
+                            class="btn btn-md btn-light btn-hover-primary active">All</a></li>
+                    {% for cat in categories %}
+                    <li class="nav-item mx-1 mb-2"><a href="#{{cat.slug}}" data-bs-toggle="tab"
+                            class="btn btn-md btn-light btn-hover-primary">{{cat.category_name}}</a></li>
+
+                    {% endfor %}
+
+                </ul>
+            </div>
+        </div>
+        <!-- Product Tab List End -->
+
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="product-all">
+                <!-- Products Start -->
+
+                <div class="products row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1">
+                    {% for p in product %}
+                    <div class="col">
+                        <div class="product">
+                            <div class="product-thumb">
+                                <a href="{% url 'product_detail' p.slug %}" class="image">
+                                    <span class="product-badges">
+                                        <span class="onsale">-13%</span>
+                                    </span>
+
+                                    <img src="{{p.product_images.first.image.url}}" alt="Product Image" width="270"
+                                        height="360">
+                                    <img class="image-hover " src="{{p.product_images.last.image.url}}"
+                                        alt="Product Image" width="270" height="360">
+                                </a>
+                                <a href="wishlist.html" class="add-to-wishlist hintT-left"
+                                    data-hint="Add to wishlist"><i class="far fa-heart"></i></a>
+                            </div>
+                            <div class="product-info">
+                                <h6 class="title"><a href="{% url 'product_detail' p.slug %}">{{p.product_name}}</a>
+                                </h6>
+                                <span class="price">
+                                    <span class="old">₹{{p.mrp_price}}</span>
+                                    <span class="new">₹{{p.dis_price}}</span>
+                                </span>
+                                <div class="product-buttons">
+                                    <a href="#{{p.uid}}" data-bs-toggle="modal" class="product-button hintT-top"
+                                        data-hint="Quick View"><i class="fas fa-search"></i></a>
+                                    <a href="{% url 'add_to_cart' %}?uid={{p.uid}}&quantity=1"
+                                        class="product-button hintT-top" data-hint="Add to Cart"><i
+                                            class="fas fa-shopping-cart"></i></a>
+                                    <a href="{% url 'add_to_wishlist' p.uid %}" class="product-button hintT-top"
+                                        data-hint="Compare"><i class="fas fa-heart"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <!-- Products End -->
+            </div>
+
+            {% for cat in categories %}
+            <div class="tab-pane fade" id="{{cat.slug}}">
+                <!-- Products Start -->
+                <div class="products row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1">
+                    {% for subcat in cat.sub_category.all %}
+                    {% if subcat.products.first %}
+                    <div class="col">
+                        <div class="product">
+                            <div class="product-thumb">
+                                <a href="{% url 'product_detail' subcat.products.first.slug  %}" class="image">
+                                    <span class="product-badges">
+                                        <span class="onsale">-13%</span>
+                                    </span>
+
+                                    <img src="{{subcat.products.first.product_images.first.image.url}}"
+                                        alt="Product Image">
+                                    <img class="image-hover "
+                                        src="{{subcat.products.first.product_images.last.image.url}}"
+                                        alt="Product Image">
+                                </a>
+                                <a href="{% url 'add_to_wishlist' subcat.products.first.uid %}"
+                                    class="add-to-wishlist hintT-left" data-hint="Add to wishlist"><i
+                                        class="far fa-heart"></i></a>
+                            </div>
+                            <div class="product-info">
+                                <h6 class="title"><a href="{% url 'product_detail' subcat.products.first.slug %}">
+                                        {{subcat.products.first.product_name}}</a>
+                                </h6>
+                                <span class="price">
+                                    <span class="old">{{subcat.products.first.mrp_price}}</span>
+                                    <span class="new">{{subcat.products.first.dis_price}}</span>
+                                </span>
+                                <div class="product-buttons">
+                                    <a href="#{{subcat.products.first.uid}}" data-bs-toggle="modal"
+                                        class="product-button hintT-top" data-hint="Quick View"><i
+                                            class="fas fa-search"></i></a>
+                                    <a href="{% url 'add_to_cart' %}?uid={{subcat.products.first.uid}}&quantity=1"
+                                        class="product-button hintT-top" data-hint="Add to Cart"><i
+                                            class="fas fa-shopping-cart"></i></a>
+                                    <a href="{% url 'add_to_wishlist' subcat.products.first.uid %}"
+                                        class="product-button hintT-top" data-hint="Compare"><i
+                                            class="fas fa-heart"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                <!-- Products End -->
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<!-- Product Section End -->
+<!--  -->
+<div class="section section-padding pt-0">
+    <div class="container">
+
+        <!-- Section Title Start -->
+        <div class="section-title2 text-center">
+            <h2 class="title">Category Banner Style 02</h2>
+            <p>Browse a wide range of distinctive pieces of arts you could never find elsewhere.</p>
+        </div>
+        <!-- Section Title End -->
+
+        <div class="row justify-content-center learts-mb-n40">
+
+            <div class="col-lg-5 col-md-6 col-12 learts-mb-40">
+                <div class="category-banner2">
+                    <a href="shop.html" class="inner">
+                        <div class="image"><img src="/static/assets/images/home-page/one.webp" alt=""></div>
+                    </a>
+                    <span class="banner-desc left">NEW COLLECTION</span>
+                </div>
+            </div>
+
+            <div class="col-lg-5 col-md-6 col-12 learts-mb-40">
+                <div class="category-banner2">
+                    <a href="shop.html" class="inner">
+                        <div class="image"><img src="/static/assets/images/home-page/two.webp" alt=""></div>
+                    </a>
+                    <span class="banner-desc right">BEST SELLERS</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!--  -->
+
+<!-- Product Section Start -->
+<div class="section section-fluid section-padding pt-0">
+    <div class="container">
+
+        <!-- Section Title Start -->
+        <div class="section-title text-center">
+            <!-- <h3 class="sub-title">Shop now</h3> -->
+            <h2 class="title title-icon-both">Shop our best-sellers</h2>
+        </div>
+        <!-- Section Title End -->
+
+        <!-- Products Start -->
+        <div class="products row row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1">
+            {% for bs in bestsaler %}
+            <div class="col">
+                <div class="product">
+                    <div class="product-thumb">
+                        <a href="{% url 'product_detail' bs.product.slug %}" class="image">
+                            <span class="product-badges">
+                                <span class="onsale">-13%</span>
+                            </span>
+                            <img src="{{bs.product.product_images.first.image.url}}" alt="Product Image" width="252"
+                                height="336">
+                            <img class="image-hover " src="{{bs.product.product_images.last.image.url}}"
+                                alt="Product Image" width="252" height="336">
+                        </a>
+                        <a href="{% url 'add_to_wishlist' bs.product.uid %}" class="add-to-wishlist hintT-left"
+                            data-hint="Add to wishlist"><i class="far fa-heart"></i></a>
+                    </div>
+                    <div class="product-info">
+                        <h6 class="title"><a
+                                href="{% url 'product_detail' bs.product.slug %}">{{bs.product.product_name}}</a></h6>
+                        <span class="price">
+                            <span class="old">₹{{bs.product.mrp_price}}</span>
+                            <span class="new">₹{{bs.product.dis_price}}</span>
+                        </span>
+                        <div class="product-buttons">
+                            <a href="#{{bs.product.uid}}" data-bs-toggle="modal" class="product-button hintT-top"
+                                data-hint="Quick View"><i class="fas fa-search"></i></a>
+                            <a href="{% url 'add_to_cart' %}?uid={{bs.product.uid}}&quantity=1"
+                                class="product-button hintT-top" data-hint="Add to Cart"><i
+                                    class="fas fa-shopping-cart"></i></a>
+                            <a href="{% url 'add_to_wishlist' bs.product.uid %}" class="product-button hintT-top"
+                                data-hint="Compare"><i class="fas fa-heart"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <!-- Products End -->
+
+    </div>
+</div>
+<!-- Product Section End -->
+
+<!-- Product Section Start -->
+<div class="section section-padding">
+    <div class="container">
+
+        <!-- Section Title Start -->
+        <div class="section-title2 text-center">
+            <h2 class="title title-icon-both">Our best sellers</h2>
+            <p>Browse a wide range of distinctive pieces of arts you could never find elsewhere.</p>
+        </div>
+        <!-- Section Title End -->
+
+        <div class="row learts-mb-n30">
+            {% if dealoftheday %}
+            <div class="col-lg-6 col-12 order-lg-2 learts-mb-30">
+                <div class="sale-banner11">
+                    <div class="inner">
+                        <img src="{{dealoftheday.product.product_images.first.image.url}}" alt="best product image"
+                            height="694" width="570">
+                        <div class="content">
+                            <h3 class="title">{{dealoftheday.product.product_name}}</h3>
+                            <!-- <img class="price " src="" alt=""> -->
+                            <h5 class="position-relative"><img
+                                    src="/static/assets/images/banner/sale/sale-banner4-1.1.webp"
+                                    alt="deal of the day"><b style="    position: absolute;
+                                    left: 45%;
+                                    font-size: 24px;
+                                    color: #fff;">₹{{dealoftheday.product.dis_price}}</b></h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="countdown2 primary2 justify-content-center learts-mt-50"
+                    data-countdown="{{dealoftheday.offer_date|date:'Y/m/d'}}">
+                </div>
+                <div class="d-flex justify-content-center learts-mt-50">
+                    <a href="{% url 'buynow' dealoftheday.product.uid %}" class="btn btn-primary btn-hover-black">shop
+                        now</a>
+                </div>
+            </div>
+            {% endif %}
+            <div class="col-lg-6 col-12 order-lg-1 learts-mb-30">
+                <!-- Products Start -->
+                <div class="products row row-cols-lg-2 row-cols-md-3 row-cols-sm-2 row-cols-1">
+                    {% for hs in hotsaler|slice:":4" %}
+                    <div class="col">
+                        <div class="product">
+                            <div class="product-thumb">
+                                <a href="{% url 'product_detail' hs.product.slug %}" class="image">
+                                    <span class="product-badges">
+                                        <span class="outofstock"><i class="far fa-frown"></i></span>
+                                        <span class="hot">hot</span>
+                                    </span>
+                                    <img src="{{hs.product.product_images.first.image.url}}" alt="Product Image"
+                                        width="270" height="360">
+                                    <img class="image-hover " src="{{hs.product.product_images.last.image.url}}"
+                                        alt="Product Image" width="270" height="360">
+                                </a>
+                                <a href="{% url 'add_to_wishlist' hs.product.uid %}" class="add-to-wishlist hintT-left"
+                                    data-hint="Add to wishlist"><i class="far fa-heart"></i></a>
+                            </div>
+                            <div class="product-info">
+                                <h6 class="title"><a
+                                        href="{% url 'product_detail' hs.product.slug %}">{{hs.product.product_name}}</a>
+                                </h6>
+                                <span class="price">₹{{hs.product.dis_price}}</span>
+                                <div class="product-buttons">
+                                    <a href="#{{hs.product.uid}}" data-bs-toggle="modal"
+                                        class="product-button hintT-top" data-hint="Quick View"><i
+                                            class="fas fa-search"></i></a>
+                                    <a href="{% url 'add_to_cart' %}?uid={{hs.product.uid}}&quantity=1"
+                                        class="product-button hintT-top" data-hint="Add to Cart"><i
+                                            class="fas fa-shopping-cart"></i></a>
+                                    <a href="{% url 'add_to_wishlist' hs.product.uid %}"
+                                        class="product-button hintT-top" data-hint="Compare"><i
+                                            class="fas fa-heart"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                </div>
+                <!-- Products End -->
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- Product Section End -->
+<!-- Video Banner Section Start -->
+<div class="section section-fluid">
+    <div class="container">
+        <div class="video-banner" data-bg-image="/static/assets/images/about/play-video.webp">
+            <div class="content">
+                <h2 class="title">LITTLE <span>SIMPLE</span> THINGS</h2>
+                <a href="/static/assets/images/statue video.mp4" class="video-popup">
+                    <img src="/static/assets/images/icons/button-play.webp" alt="">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Video Banner Section End -->
+<!-- Feature Section Start -->
+<div class="section border-top learts-pt-30 learts-pb-30">
+    <div class="container">
+        <div class="row learts-mb-n30">
+
+            <div class="col-lg-3 col-sm-6 col-12 learts-mb-30">
+                <div class="icon-box5">
+                    <div class="icon" data-bg-color="#c0d5d0"><i class="fas fa-truck"></i></div>
+                    <div class="content">
+                        <h4 class="title">Free shipping</h4>
+                        <p>All orders over ₹59</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-6 col-12 learts-mb-30">
+                <div class="icon-box5">
+                    <div class="icon" data-bg-color="#c0d5d0"><i class="fas fa-redo-alt"></i></div>
+                    <div class="content">
+                        <h4 class="title">Free returns</h4>
+                        <p>Free 7-day returns</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-6 col-12 learts-mb-30">
+                <div class="icon-box5">
+                    <div class="icon" data-bg-color="#c0d5d0"><i class="fas fa-headset"></i></div>
+                    <div class="content">
+                        <h4 class="title">24/7 Support</h4>
+                        <p>Dedicated support</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-6 col-12 learts-mb-30">
+                <div class="icon-box5">
+                    <div class="icon" data-bg-color="#c0d5d0"><i class="fas fa-gift"></i></div>
+                    <div class="content">
+                        <h4 class="title">Gift cards</h4>
+                        <p>Code promotion</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Feature Section End -->
+
+<!-- Category Banner Section Start -->
+<div class="section mt-5">
+    <div class="container">
+        <div class="row row-cols-lg-4 row-cols-sm-2 row-cols-1 learts-mb-n40">
+
+            <div class="col learts-mb-40">
+                <div class="category-banner4">
+                    <a href="{% url 'shop' %}" class="inner">
+                        <div class="image"><img src="/static/assets/images/home-page/best_seller/1 (43).jpg" alt="image"
+                                height="270"></div>
+                        <div class="content" data-bg-color="#f4ede7">
+                            <h3 class="title">Emerald Stones</h3>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col learts-mb-40">
+                <div class="category-banner4">
+                    <a href="{% url 'shop' %}" class="inner">
+                        <div class="image"><img src="/static/assets/images/home-page/best_seller/1 (63).jpg"
+                                alt="home decor image" height="270"></div>
+                        <div class="content" data-bg-color="#e8f5f2">
+                            <h3 class="title">Ruby Stone</h3>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col learts-mb-40">
+                <div class="category-banner4">
+                    <a href="{% url 'shop' %}" class="inner">
+                        <div class="image"><img src="/static/assets/images/home-page/banner-s4-2.webp" alt=""></div>
+                        <div class="content" data-bg-color="#e3e4f5">
+                            <h3 class="title">Khooni Neelam Stone</h3>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col learts-mb-40">
+                <div class="category-banner4">
+                    <a href="{% url 'shop' %}" class="inner">
+                        <div class="image"><img src="/static/assets/images/bathware/decorline-pedestal/2.webp"
+                                alt="bath-ware image" height="270"></div>
+                        <div class="content" data-bg-color="#faf5e5">
+                            <h3 class="title">Moon Stone</h3>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Category Banner Section End -->
+
+
+
+<!-- Testimonials Section Start -->
+<div class="section section-padding">
+    <div class="container">
+
+        <div class="section-title2 row justify-content-between align-items-center">
+            <div class="col-md-auto col-12">
+                <!-- Section Title Start -->
+                <h2 class="title">We love our clients
+                    <img src="/static/assets/images/title/diamond.gif" width="64" alt="diamond">
+                </h2>
+                <!-- Section Title End -->
+            </div>
+            <div class="col-md-auto col-12 mt-4 mt-md-0">
+                <a href="{% url 'shop' %}" class="btn btn-light btn-hover-black">Shop Now</a>
+            </div>
+        </div>
+
+        <div class="testimonial-carousel">
+            <div class="col">
+                <div class="testimonial">
+                    <p>Amazing work style and excellent quality in service and products. I was in tension that the product will be genuinely deliver or not? but your response made me satisfy. Wishing you the best.</p>
+                    <div class="author">
+                        <img src="/static/assets/images/home-page/nik.jpg" alt="">
+                        <div class="content">
+                            <h6 class="name">RENUKA DUBEY</h6>
+                            <span class="title">LUCKNOW, UTTAR PRADESH</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="testimonial">
+                    <p>
+                        Great support by Mr. Rahul (Customer executive) from beginning to end of my shopping hats off jewelleryshopindia, will be purchase another more products soon.</p>
+                    <div class="author">
+                        <img src="/static/assets/images/home-page/nik.jpg" alt="">
+                        <div class="content">
+                            <h6 class="name">SUNIL KUMAR AGARWAL, </h6>
+                            <span class="title">HOWRAH, WEST BENGAL</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="testimonial">
+                    <p>ThemeMove deserves 5 star for theme’s features, design quality, flexibility, customizability and support service!</p>
+                    <div class="author">
+                        <img src="/static/assets/images/home-page/nik.jpg" alt="">
+                        <div class="content">
+                            <h6 class="name">Florence Polla</h6>
+                            <span class="title">Customer</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="testimonial">
+                    <p>Thanks for always keeping your WordPress themes up to date. Your level of support is second to none.</p>
+                    <div class="author">
+                        <img src="/static/assets/images/home-page/nik.jpg" alt="">
+                        <div class="content">
+                            <h6 class="name">Sheena</h6>
+                            <span class="title">Reporter</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- Testimonials Section End -->
+
+<!-- Shop By Brands Section Start -->
+<div class="section section-fluid section-padding bg-white border-top-dashed border-bottom-dashed">
+    <div class="container">
+
+        <!-- Section Title Start -->
+        <div class="section-title text-center">
+            <h2 class="title title-icon-both">Shop by brands</h2>
+        </div>
+        <!-- Section Title End -->
+
+        <div class="brand-carousel">
+            {% for b in brands %}
+            <div class="col">
+                <div class="brand-item">
+                    <a href="#"><img src="{{b.brands_image.url}}" alt="Brands Image" width="179" height="80"></a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</div>
+<!-- Shop By Brands Section End -->
+
+<!--! Blog Section Start -->
+<!-- <div class="section section-padding">
+    <div class="container">
+
+   
+        <div class="section-title2 text-center">
+            <h2 class="title title-icon-both">Blog Updates</h2>
+        </div>
+       
+
+        <div class="blog-carousel">
+            {% for b in blog %}
+            <div class="col">
+                <div class="blog">
+                    <div class="image">
+                        <a href="#"><img src="{{b.thumbnail.url}}" alt="Blog Image"></a>
+                    </div>
+                    <div class="content">
+                        <ul class="meta">
+                            <li><i class="far fa-calendar"></i><a href="#">{{b.time_upload}}</a></li>
+                            <li><i class="far fa-eye"></i> 201 views</li>
+                        </ul>
+                        <h5 class="title"><a href="#">{{b.title}}</a>
+                        </h5>
+                        <div class="desc">
+                            <p>{{b.overview|safe|truncatechars:120}}</p>
+                        </div>
+                        <a href="{% url 'blog_view' b.slug %}" class="link">Read More</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+        <div class="row learts-mt-50">
+            <div class="col text-center">
+                <a href="#" class="btn btn-outline-dark btn-hover-success">View all post</a>
+            </div>
+        </div>
+    </div>
+</div> -->
+<!--! Blog Section End -->
+
+
+{% include 'base/footer.html' %}
+<!-- Modal -->
+
+{% for p in product %}
+<div class="quickViewModal modal fade" id="{{p.uid}}">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <button class="close" data-bs-dismiss="modal">&times;</button>
+            <div class="row learts-mb-n30">
+
+                <!-- Product Images Start -->
+                <div class="col-lg-6 col-12 learts-mb-30">
+                    <div class="product-images">
+                        <div class="product-gallery-slider-quickview">
+                            <div class="product-zoom" data-image="{{p.product_images.first.image.url}}">
+                                <img src="{{p.product_images.last.image.url}}" alt="">
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- Product Images End -->
+
+                <!-- Product Summery Start -->
+                <div class="col-lg-6 col-12 overflow-hidden position-relative learts-mb-30">
+                    <div class="product-summery customScroll">
+                        <div class="product-ratings">
+                            {% include 'base/reviews.html' with average_rating=p.average_rating
+                            total_reviews=p.total_reviews %}
+                        </div>
+                        <h3 class="product-title">{{p.product_name}}</h3>
+                        <div class="product-price">₹{{p.dis_price}} – ₹{{p.mrp_price}}</div>
+                        <div class="product-description">
+                            <p>{{p.product_description|safe}}</p>
+                        </div>
+                        <form action="{% url 'add_to_cart' %}" method="get" id="form{{p.uid}}">
+                            {% csrf_token %}
+                            <div class="product-variations">
+                                <table>
+                                    <tbody>
+                                        <!-- <tr>
+                                        <td class="label"><span>Size</span></td>
+                                        <td class="value">
+                                            <div class="product-sizes">
+                                                <a href="#">Large</a>
+                                                <a href="#">Medium</a>
+                                                <a href="#">Small</a>
+                                            </div>
+                                        </td>
+                                    </tr> -->
+                                        <!-- <tr>
+                                        <td class="label"><span>Color</span></td>
+                                        <td class="value">
+                                            <div class="product-colors">
+                                                <a href="#" data-bg-color="#000000"></a>
+                                                <a href="#" data-bg-color="#ffffff"></a>
+                                            </div>
+                                        </td>
+                                    </tr> -->
+                                        <tr>
+                                            <td class="label"><span>Quantity</span></td>
+                                            <td class="value">
+                                                <div class="product-quantity">
+                                                    <span class="qty-btn minus"><i class="ti-minus"></i></span>
+                                                    <input type="text" class="input-qty" value="1" name="quantity">
+                                                    <span class="qty-btn plus"><i class="ti-plus"></i></span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <input type="hidden" name="uid" value="{{p.uid}}">
+                            <div class="product-buttons">
+                                <a href="{% url 'add_to_wishlist' p.uid %}"
+                                    class="btn btn-icon btn-outline-body btn-hover-dark"><i
+                                        class="far fa-heart"></i></a>
+                                <a onclick="document.getElementById('form{{p.uid}}').submit();"
+                                    class="btn btn-dark btn-outline-hover-dark"><i class="fas fa-shopping-cart"></i>
+                                    Add to Cart</a>
+                                <a href="{% url 'add_to_wishlist' p.uid %}"
+                                    class="btn btn-icon btn-outline-body btn-hover-dark"><i
+                                        class="fas fa-heart"></i></a>
+                            </div>
+                        </form>
+
+                        <div class="product-brands">
+                            <span class="title">Brands</span>
+                            <div class="brands">
+                                <a href="#"><img src="{{p.brands.brands_image.url}}" alt=""></a>
+                                <!-- <a href="#"><img src="{{p.brands.brands_image.url}}" alt=""></a> -->
+                            </div>
+                        </div>
+                        <div class="product-meta mb-0">
+                            <table>
+                                <tbody>
+                                    <!-- <tr>
+                                        <td class="label"><span>SKU</span></td>
+                                        <td class="value">0404019</td>
+                                    </tr> -->
+                                    <tr>
+                                        <td class="label"><span>Category</span></td>
+                                        <td class="value">
+                                            <ul class="product-category">
+                                                <li><a href="#">{{p.sub_category.category_name}}</a></li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <!-- <tr>
+                                        <td class="label"><span>Tags</span></td>
+                                        <td class="value">
+                                            <ul class="product-tags">
+                                                <li><a href="#">handmade</a></li>
+                                                <li><a href="#">learts</a></li>
+                                                <li><a href="#">mug</a></li>
+                                                <li><a href="#">product</a></li>
+                                                <li><a href="#">learts</a></li>
+                                            </ul>
+                                        </td>
+                                    </tr> -->
+                                    <tr>
+                                        <td class="label"><span>Share on</span></td>
+                                        <td class="va">
+                                            <div class="product-share">
+                                                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                                <a href="#"><i class="fab fa-google-plus-g"></i></a>
+                                                <a href="#"><i class="fab fa-pinterest"></i></a>
+                                                <a href="#"><i class="far fa-envelope"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product Summery End -->
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+<!-- Pop Up Render Slider  -->
+<!-- <section class="popupSlider">
+    <div class="container">
+        <div class="row">
+            <div id="test-popup" class="white-popup mfp-hide">
+                <h2>Wait! Can't find what you're looking for ?</h2>
+                <p>Maybe this will help...</p>
+                <div class="col-md-12">
+                    <div class="owl-carousel owl-theme owll">
+                        {% for p in bestsaler %}
+                        <div class="item">
+                            <div class="product">
+                                <div class="product-thumb" style="    max-width: 230px;">
+                                    <a href="{% url 'product_detail' p.product.slug %}" class="image">
+                                        <img src="{{p.product.product_images.first.image.url}}" alt="Product Image"
+                                            width="230" height="300">
+                                        <img class="image-hover " src="{{p.product.product_images.last.image.url}}"
+                                            alt="Product Image" width="230" height="300">
+                                    </a>
+                                    <a href="{% url 'add_to_wishlist' p.product.uid %}"
+                                        class="add-to-wishlist hintT-left" data-hint="Add to wishlist"><i
+                                            class="far fa-heart"></i></a>
+                                </div>
+                                <div class="product2-info">
+                                    <h6 class="title"><a
+                                            href="{% url 'product_detail' p.product.slug %}">{{p.product.product_name}}</a>
+                                    </h6>
+                                    <span class="price">
+                                        ₹{{p.product.dis_price}}
+                                    </span>
+                                </div>
+                                <div class="product2-buttons">
+                                    <a href="#quickViewModal" data-bs-toggle="modal" class="product-button hintT-top"
+                                        data-hint="Quick View"><i class="fas fa-search"></i></a>
+                                    <a href="{% url 'add_to_cart' %}?uid={{p.product.uid}}&quantity=1"
+                                        class="product-button hintT-top" data-hint="Add to Cart"><i
+                                            class="fas fa-shopping-cart"></i></a>
+                                    <a href="{% url 'add_to_wishlist' p.product.uid %}" class="product-button hintT-top"
+                                        data-hint="Compare"><i class="fas fa-heart"></i></a>
+                                </div>
+                            </div>
+
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    // Open directly via API
+    setTimeout(function () {
+        $.magnificPopup.open({
+            items: {
+                src: '#test-popup', // can be a HTML string, jQuery object, or CSS selector
+                type: 'inline'
+            }
+        });
+    }, 75000);
+</script> -->
+
+{% endblock body %}

@@ -1,0 +1,84 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block body %}
+
+    <div class="offcanvas-overlay"></div>
+    <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- -->
+    <!-- Page Title/Header Start -->
+    <div class="page-title-section section" data-bg-image="/static/assets/images//banner/order.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+
+                    <div class="page-title">
+                        <h1 class="title">My Account</h1>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                            <li class="breadcrumb-item active">My Account</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page Title/Header End -->
+
+    <!-- My Account Section Start -->
+    <div class="section section-padding">
+        <div class="container">
+            <div class="row learts-mb-n30">
+
+                <!-- My Account Tab List Start -->
+                {% include 'accounts/sidebar.html' %}
+                <!-- My Account Tab List End -->
+
+                <!-- My Account Tab Content Start -->
+                <div class="col-lg-8 col-12 learts-mb-30">
+                    <div class="tab-content">
+
+                       
+                        <!-- Single Tab Content Start -->
+                        <div id="orders">
+                            <div class="myaccount-content order">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Order No</th>
+                                                <!-- <th>Order</th> -->
+                                                <th>Date</th>
+                                                <th>Status</th>
+                                                <th>Total</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for o in order %}
+                                            <tr>
+                                                <td>{{o.invoice_no}}</td>
+                                                <!-- <td>1</td> -->
+                                                <td>{{o.created_at}}</td>
+                                                <td>{{o.status}}</td>
+                                                <td>{{o.paid_amount}}</td>
+                                                <td><a href="{% url 'bills' o.uid %}">View Bill</a></td>
+                                            </tr>
+                                            {% endfor %}
+                                           
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Single Tab Content End -->
+
+                    </div>
+                </div> <!-- My Account Tab Content End -->
+            </div>
+        </div>
+    </div>
+    <!-- My Account Section End -->
+{% include 'base/footer.html' %}
+
+ {% endblock body %}

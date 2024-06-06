@@ -1,0 +1,72 @@
+{% extends 'adminpannel/base.html' %}
+
+{% block body %}
+{% include 'adminpannel/loader.html' %}
+<div id="main-wrapper">
+    <!-- header -->
+    {% include 'adminpannel/header.html' %}
+    <!-- #/ header -->
+    <!-- sidebar -->
+    {% include 'adminpannel/sidebar.html' %}
+    <!-- #/ sidebar -->
+    <div class="content-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-xl-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-body">
+                                <div class="text-center">
+                                    Search Product
+                                </div>
+                                <hr>
+                                <form action="" method="get" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class=" d-flex  align-items-end">
+                                        <div class="mx-1">
+                                            <input type="text" class="form-control" name="query">
+                                        </div>
+                                        <div class="d-flex align-items-end mx-1">
+                                            <button style="height: 40px;" type="submit"
+                                                class="btn btn-dark">Submit</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <hr>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 col-xl-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-body">
+                                {% for p in product %}
+                                <div class="d-flex">           
+                                    <div class="mx-4">
+                                        <img style="width: 300px;" src="{{p.product_images.first.image.url}}" alt="">
+                                    </div>
+                                    <div>
+                                        <span>UID NO: <strong class="text-primary ">{{p.uid}}</strong></span>
+                                        <p>{{p.product_name}}</p>
+                                        <span>Category : {{p.sub_category.category.category_name}}</span><br>
+                                        <span>Sub Category : {{p.sub_category.category_name}}</span><br>
+                                        <span>Brands : {{p.brands}}</span><br>
+                                        <span>Price : {{p.dis_price}}</span>
+                                    </div>
+                                </div>
+                                <hr>
+                                {% endfor %}                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'adminpannel/copywrite.html' %}
+</div>
+{% endblock body %}

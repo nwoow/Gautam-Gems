@@ -1,0 +1,15 @@
+<!-- footer -->
+<div class="footer" >
+    <div class="copyright" style="background: #B8F3CE!important;">
+        <p>Copyright &copy; <a href="{{developer_website}}"><img src="/static/assets/GHOSTING.webp"
+                    alt="ghosting tech logo" width="30">{{developer_name}}</a> <span id="year"></span></p>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var yearElement = document.getElementById('year');
+        var currentYear = new Date().getFullYear();
+        yearElement.textContent = currentYear;
+    });
+</script>
+<!-- #/ footer -->

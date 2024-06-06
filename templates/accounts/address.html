@@ -1,0 +1,90 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block body %}
+
+    <div class="offcanvas-overlay"></div>
+    <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- -->
+    <!-- Page Title/Header Start -->
+    <div class="page-title-section section" data-bg-image="/static/assets/images//banner/order.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+
+                    <div class="page-title">
+                        <h1 class="title">My Account</h1>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                            <li class="breadcrumb-item active">My Account</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page Title/Header End -->
+
+    <!-- My Account Section Start -->
+    <div class="section section-padding">
+        <div class="container">
+            <div class="row learts-mb-n30">
+
+                <!-- My Account Tab List Start -->
+                {% include 'accounts/sidebar.html' %}
+                <!-- My Account Tab List End -->
+
+                <!-- My Account Tab Content Start -->
+                <div class="col-lg-8 col-12 learts-mb-30">
+                    <div class="tab-content">
+
+                        <!-- Single Tab Content Start -->
+                        <div id="address">
+                            <div class="myaccount-content address">
+                                <p>The following addresses will be used on the checkout page by default.</p>
+                                <div class="row learts-mb-n30">
+                                    <div class="col-md-6 col-12 learts-mb-30">
+                                        {% if billaddress %}
+                                        <h4 class="title">Billing Address <a href="{% url 'editbilladdress' billaddress.uid %}" class="edit-link">edit</a></h4>
+                                        <address>
+                                            <p><strong>{{billaddress.name}}</strong></p>
+                                            <p>{{billaddress.addressline}}, {{billaddress.locality}} <br>
+                                                {{billaddress.city}}, {{billaddress.state}}, {{billaddress.zipcode}}</p>
+                                            <p>Mobile: {{billaddress.phone}}</p>
+                                            <p>Email: {{billaddress.email}}</p>
+                                        </address>
+                                        {% else %}
+                                        <h4 class="title">Billing Address Not Added <br> <a href="{% url 'addbilladdress'  %}" class="edit-link">Add Address</a></h4>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-6 col-12 learts-mb-30">
+                                        {% if address %}
+                                        <h4 class="title">Shipping Address <a href="{% url 'editaddress' address.uid %}" class="edit-link">edit</a></h4>
+                                        <address>
+                                            <p><strong>{{address.name}}</strong></p>
+                                            <p>{{address.addressline}}, {{address.locality}} <br>
+                                                {{address.city}}, {{address.state}}, {{address.zipcode}}</p>
+                                            <p>Mobile: {{address.phone}}</p>
+                                            <p>Email: {{address.email}}</p>
+                                        </address>
+                                        {% else %}
+                                        <h4 class="title">Shipping Address Not Added <br> <a href="{% url 'addaddress' %}" class="edit-link">Add Address</a></h4>
+                                        {% endif %}
+                            
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Single Tab Content End -->
+
+                       
+
+                    </div>
+                </div> <!-- My Account Tab Content End -->
+            </div>
+        </div>
+    </div>
+    <!-- My Account Section End -->
+{% include 'base/footer.html' %}
+
+ {% endblock body %}

@@ -1,0 +1,479 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block body %}
+
+<div class="offcanvas-overlay"></div>
+<!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- -->
+
+<!-- Page Title/Header Start -->
+<div class="page-title-section section" data-bg-image="/static/assets/images//banner/order.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+
+                <div class="page-title">
+                    <h1 class="title">Shop</h1>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item active">Products</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page Title/Header End -->
+
+<!-- Shop Products Section Start -->
+<div class="section section-padding pt-0">
+
+    <!-- Shop Toolbar Start -->
+    <div class="shop-toolbar section-fluid border-bottom">
+        <div class="container">
+            <div class="row learts-mb-n20">
+
+                <!-- Isotop Filter Start -->
+                <div class="col-md col-12 align-self-center learts-mb-20">
+                    <div class="isotope-filter shop-product-filter" data-target="#shop-products">
+                        <button class="active" data-filter="*">All</button>
+                        {% for cat in categories %}
+                        <a href="{% url 'shop' %}?category={{cat.category_name}}">
+                            <button data-filter=".pedestal">{{cat.category_name}}</button>
+                        </a>
+                        {% endfor %}
+                        <!-- <button data-filter=".pedestal">Pedestal</button>
+                            <button data-filter=".basin">Basins</button>
+                            <button data-filter=".new">Faucet</button> -->
+                    </div>
+                </div>
+                <!-- Isotop Filter End -->
+
+                <div class="col-md-auto col-12 learts-mb-20">
+                    <ul class="shop-toolbar-controls">
+
+                        <li>
+                            <div class="product-sorting">
+                                <select class="nice-select" onchange="changeselectvalue(this.value)">
+                                    <option value="menu_order" selected="selected">Default sorting</option>
+                                    <option value="popularity">Sort by popularity</option>
+                                    <option value="rating">Sort by average rating</option>
+                                    <option value="newness">Sort by latest</option>
+                                    <option value="ltoh">Sort by price: low to high</option>
+                                    <option value="htol">Sort by price: high to low</option>
+                                </select>
+                            </div>
+                            <script>
+                                function changeselectvalue(value) {
+                                    window.location.href = window.location.pathname + `?order=${value}`
+                                }                             
+                            </script>
+                        </li>
+                        <li>
+                            <div class="product-column-toggle d-none d-xl-flex">
+                                <button class="toggle hintT-top" data-hint="5 Column" data-column="5"><i
+                                        class="ti-layout-grid4-alt"></i></button>
+                                <button class="toggle active hintT-top" data-hint="4 Column" data-column="4"><i
+                                        class="ti-layout-grid3-alt"></i></button>
+                                <button class="toggle hintT-top" data-hint="3 Column" data-column="3"><i
+                                        class="ti-layout-grid2-alt"></i></button>
+                            </div>
+                        </li>
+                        <li>
+                            <a class="product-filter-toggle" href="#product-filter">Filters</a>
+                        </li>
+
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Shop Toolbar End -->
+
+    <!-- Product Filter Start -->
+    <div id="product-filter" class="product-filter section-fluid bg-light">
+        <div class="container-fluid">
+            <div class="row row-cols-lg-5 row-cols-md-3 row-cols-sm-2 row-cols-1 learts-mb-n30">
+
+                <!-- Sort by Start -->
+                <div class="col learts-mb-30">
+                    <h3 class="widget-title product-filter-widget-title">Sort by</h3>
+                    <ul class="widget-list product-filter-widget customScroll">
+                        <li><a href="{% url 'shop' %}?order=popularity">Popularity</a></li>
+                        <li><a href="{% url 'shop' %}?order=avgprice">Average rating</a></li>
+                        <li><a href="{% url 'shop' %}?order=newness">Newness</a></li>
+                        <li><a href="{% url 'shop' %}?order=ltoh">Price: low to high</a></li>
+                        <li><a href="{% url 'shop' %}?order=htol">Price: high to low</a></li>
+                    </ul>
+                </div>
+                <!-- Sort by End -->
+
+                <!-- Price filter Start -->
+                <div class="col learts-mb-30">
+                    <h3 class="widget-title product-filter-widget-title">Price filter</h3>
+                    <ul class="widget-list product-filter-widget customScroll">
+                        <li> <a href="{% url 'shop' %}">All</a></li>
+                        <li> <a href="{% url 'shop' %}?min_price=0&max_price=500"><span class="amount"><span
+                                        class="cur-symbol">₹</span>0.00</span> - <span class="amount"><span
+                                        class="cur-symbol">₹</span>500.00</span></a></li>
+                        <li> <a href="{% url 'shop' %}?min_price=500&max_price=1000"><span class="amount"><span
+                                        class="cur-symbol">₹</span>500.00</span> - <span class="amount"><span
+                                        class="cur-symbol">₹</span>1000.00</span></a></li>
+                        <li> <a href="{% url 'shop' %}?min_price=1000&max_price=5000"><span class="amount"><span
+                                        class="cur-symbol">₹</span>1000.00</span> - <span class="amount"><span
+                                        class="cur-symbol">₹</span>5000.00</span></a></li>
+                        <li> <a href="{% url 'shop' %}?min_price=0&max_price=5000"><span class="amount"><span
+                                        class="cur-symbol">₹</span>5000.00</span> - <span class="amount"><span
+                                        class="cur-symbol">₹</span>15000.00</span></a></li>
+                        <li> <a href="{% url 'shop' %}?min_price=15000&max_price=100000"><span class="amount"><span
+                                        class="cur-symbol">₹</span>15000.00</span> +</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Price filter End -->
+
+                <!-- Categories Start -->
+                <div class="col learts-mb-30">
+                    <h3 class="widget-title product-filter-widget-title">Categories</h3>
+                    <ul class="widget-list product-filter-widget customScroll">
+                        {% for cat in categories %}
+                        <li><a href="{% url 'shop' %}?category={{cat.category_name}}">{{cat.category_name}}</a>
+                            <span class="count">{{cat.sub_category.all.count}}</span>
+                        </li>
+                        {% endfor %}
+
+                    </ul>
+                </div>
+                <!-- Categories End -->
+
+                <!-- Filters by colors Start -->
+                <!-- <div class="col learts-mb-30">
+                    <h3 class="widget-title product-filter-widget-title">Filters by colors</h3>
+                    <ul class="widget-colors product-filter-widget customScroll">
+                        <li><a href="#" class="hintT-top" data-hint="Black"><span
+                                    data-bg-color="#000000">Black</span></a></li>
+                        <li><a href="#" class="hintT-top" data-hint="White"><span
+                                    data-bg-color="#FFFFFF">White</span></a></li>
+                        <li><a href="#" class="hintT-top" data-hint="Dark Red"><span data-bg-color="#b2483c">Dark
+                                    Red</span></a></li>
+                        <li><a href="#" class="hintT-top" data-hint="Flaxen"><span
+                                    data-bg-color="#d5b85a">Flaxen</span></a></li>
+                        <li><a href="#" class="hintT-top" data-hint="Pine"><span data-bg-color="#01796f">Pine</span></a>
+                        </li>
+                        <li><a href="#" class="hintT-top" data-hint="Tortilla"><span
+                                    data-bg-color="#997950">Tortilla</span></a></li>
+                    </ul>
+                </div> -->
+                <!-- Filters by colors End -->
+
+                <!-- Brands Start -->
+                <div class="col learts-mb-30">
+                    <h3 class="widget-title product-filter-widget-title">Brands</h3>
+                    <ul class="widget-list product-filter-widget customScroll">
+                        {% for b in allbrands %}
+                        <li><a href="{% url 'shop' %}?brand={{b.brands_name}}">{{b.brands_name}}</a> <span
+                                class="count">{{b.productbrand.all.count}}</span></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <!-- Brands End -->
+
+            </div>
+        </div>
+    </div>
+    <!-- Product Filter End -->
+
+    <div class="section section-fluid learts-mt-70">
+        <div class="container">
+            <div class="row learts-mb-n50">
+
+                <div class="col-lg-9 col-12 learts-mb-50 order-lg-2">
+                    <!-- Products Start -->
+                    <div id="shop-products"
+                        class="products isotope-grid row row-cols-xl-4 row-cols-md-3 row-cols-sm-2 row-cols-1">
+
+                        <div class="grid-sizer col-1"></div>
+                        {% for p in product %}
+                        <div class="grid-item col pedestal ">
+                            <div class="product ">
+                                <div class="product-thumb">
+                                    <a href="{% url 'product_detail' p.slug %}" class="image">
+                                        <img src="{{p.product_images.first.image.url}}" alt="Product Image" width="234"
+                                            height="312">
+                                        <img class="image-hover " src="{{p.product_images.last.image.url}}"
+                                            alt="Product Image" width="234" height="312">
+                                    </a>
+                                    <a href="{% url 'add_to_wishlist' p.uid %}" class="add-to-wishlist hintT-left"
+                                        data-hint="Add to wishlist"><i class="far fa-heart"></i></a>
+                                </div>
+                                <div class="product-info">
+                                    <h6 class="title"><a href="{% url 'product_detail' p.slug %}">{{p.product_name}}
+                                        </a>
+                                    </h6>
+                                    <span class="price">
+                                        ₹{{p.dis_price}}
+                                    </span>
+                                    <div class="product-buttons">
+                                        <a href="#{{p.uid}}" data-bs-toggle="modal" class="product-button hintT-top"
+                                            data-hint="Quick View"><i class="fas fa-search"></i></a>
+                                        <a href="{% url 'add_to_cart' %}?uid={{p.uid}}&quantity=1"
+                                            class="product-button hintT-top" data-hint="Add to Cart"><i
+                                                class="fas fa-shopping-cart"></i></a>
+                                        <a href="{% url 'add_to_wishlist' p.uid %}" class="product-button hintT-top"
+                                            data-hint="Compare"><i class="fas fa-heart"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+
+                    </div>
+                    <!-- Products End -->
+                    <div class="text-center learts-mt-70">
+                        <!-- <a href="#" id="loadMore" onclick="myFunction()"
+                                class="btn btn-dark btn-outline-hover-dark"><i class="ti-plus"></i> More</a> -->
+                        <a href="#" class="btn btn-dark btn-outline-hover-dark"><i class="ti-plus"></i> More</a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-12 learts-mb-10 order-lg-1">
+
+                    <!-- Search Start -->
+                    <div class="single-widget learts-mb-40">
+                        <div class="widget-search">
+                            <form action="#">
+                                <input type="text" placeholder="Search products....">
+                                <button><i class="fas fa-search"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- Search End -->
+
+                    <!-- Categories Start -->
+                    <div class="single-widget learts-mb-40">
+                        <h3 class="widget-title product-filter-widget-title">Product categories</h3>
+                        <ul class="widget-list">
+                            {% for cat in categories %}
+                            {% for subcat in cat.sub_category.all %}
+                            <li><a
+                                    href="{% url 'shop' %}?subcategory={{subcat.category_name}}">{{subcat.category_name}}</a>
+                                <span class="count">{{subcat.products.all.count}}</span>
+                            </li>
+                            {% endfor %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <!-- Categories End -->
+
+                    <!-- Price Range Start -->
+                    <div class="single-widget learts-mb-40">
+                        <h3 class="widget-title product-filter-widget-title">Filters by price</h3>
+                        <div class="widget-price-range">
+                            <input class="range-slider" type="text" data-min="0" data-max="12000" data-from="0"
+                                data-to="12000" onchange="pricerange(this.value)" />
+                        </div>
+                    </div>
+                    <!-- Price Range End -->
+                    <script>
+                        function pricerange(value) {
+                            const valueer = (value.split(';'))
+                            const pricedif = document.getElementsByClassName('range-slider')
+                            window.location.href = window.location.pathname + `?min_price=${valueer[0]}&max_price=${valueer[1]}`
+                        }
+                    </script>
+                    <!-- List Product Widget Start -->
+                    <div class="single-widget learts-mb-40">
+                        <h3 class="widget-title product-filter-widget-title">Products</h3>
+                        <ul class="widget-products">
+                            {% for p in hotsaler %}
+                            <li class="product">
+                                <div class="thumbnail">
+                                    <a href="{% url 'product_detail' p.product.slug %}"><img
+                                            src="{{p.product.product_images.first.image.url}}" alt="List product"></a>
+                                </div>
+                                <div class="content">
+                                    <h6 class="title"><a
+                                            href="{% url 'product_detail' p.product.slug %}">{{p.product.product_name}}</a>
+                                    </h6>
+                                    <span class="price">
+                                        ₹{{p.product.dis_price}}
+                                    </span>
+                                    <div class="ratting">
+                                        <span class="rate" style="width: 80%;"></span>
+                                    </div>
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <!-- List Product Widget End -->
+
+                    <!-- Tags Start -->
+                    <!-- <div class="single-widget learts-mb-40">
+                        <h3 class="widget-title product-filter-widget-title">Product Tags</h3>
+                        <div class="widget-tags">
+                            <a href="#">handmade</a>
+                            <a href="#">decorline</a>
+                            <a href="#">mug</a>
+                            <a href="#">product</a>
+                            <a href="#">decorline</a>
+                        </div>
+                    </div> -->
+                    <!-- Tags End -->
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- Shop Products Section End -->
+
+{% include 'base/footer.html' %}
+<!-- Modal -->
+
+{% for p in product %}
+<div class="quickViewModal modal fade" id="{{p.uid}}">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <button class="close" data-bs-dismiss="modal">&times;</button>
+            <div class="row learts-mb-n30">
+
+                <!-- Product Images Start -->
+                <div class="col-lg-6 col-12 learts-mb-30">
+                    <div class="product-images">
+                        <div class="product-gallery-slider-quickview">
+                            <div class="product-zoom" data-image="{{p.product_images.first.image.url}}">
+                                <img src="{{p.product_images.first.image.url}}" alt="">
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- Product Images End -->
+
+                <!-- Product Summery Start -->
+                <div class="col-lg-6 col-12 overflow-hidden position-relative learts-mb-30">
+                    <div class="product-summery customScroll">
+                        <div class="product-ratings">
+                            {% include 'base/reviews.html' with average_rating=p.average_rating
+                            total_reviews=p.total_reviews %}
+                        </div>
+                        <h3 class="product-title">{{p.product_name}}</h3>
+                        <div class="product-price">₹{{p.dis_price}} – ₹{{p.mrp_price}}</div>
+                        <div class="product-description">
+                            <p>{{p.product_description|safe}}</p>
+                        </div>
+                        <form action="{% url 'add_to_cart' %}" method="get" id="form{{p.uid}}">
+                            {% csrf_token %}
+                            <div class="product-variations">
+                                <table>
+                                    <tbody>
+                                        <!-- <tr>
+                                        <td class="label"><span>Size</span></td>
+                                        <td class="value">
+                                            <div class="product-sizes">
+                                                <a href="#">Large</a>
+                                                <a href="#">Medium</a>
+                                                <a href="#">Small</a>
+                                            </div>
+                                        </td>
+                                    </tr> -->
+                                        <!-- <tr>
+                                        <td class="label"><span>Color</span></td>
+                                        <td class="value">
+                                            <div class="product-colors">
+                                                <a href="#" data-bg-color="#000000"></a>
+                                                <a href="#" data-bg-color="#ffffff"></a>
+                                            </div>
+                                        </td>
+                                    </tr> -->
+                                        <tr>
+                                            <td class="label"><span>Quantity</span></td>
+                                            <td class="value">
+                                                <div class="product-quantity">
+                                                    <span class="qty-btn minus"><i class="ti-minus"></i></span>
+                                                    <input type="text" class="input-qty" value="1" name="quantity">
+                                                    <span class="qty-btn plus"><i class="ti-plus"></i></span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <input type="hidden" name="uid" value="{{p.uid}}">
+                            <div class="product-buttons">
+                                <a href="{% url 'add_to_wishlist' p.uid %}"
+                                    class="btn btn-icon btn-outline-body btn-hover-dark"><i
+                                        class="far fa-heart"></i></a>
+                                <a onclick="document.getElementById('form{{p.uid}}').submit();"
+                                    class="btn btn-dark btn-outline-hover-dark"><i class="fas fa-shopping-cart"></i>
+                                    Add to Cart</a>
+                                <a href="{% url 'add_to_wishlist' p.uid %}"
+                                    class="btn btn-icon btn-outline-body btn-hover-dark"><i
+                                        class="fas fa-heart"></i></a>
+                            </div>
+                        </form>
+
+                        <div class="product-brands">
+                            <span class="title">Brands</span>
+                            <div class="brands">
+                                <a href="#"><img src="{{p.brands.brands_image.url}}" alt=""></a>
+                                <!-- <a href="#"><img src="{{p.brands.brands_image.url}}" alt=""></a> -->
+                            </div>
+                        </div>
+                        <div class="product-meta mb-0">
+                            <table>
+                                <tbody>
+                                    <!-- <tr>
+                                        <td class="label"><span>SKU</span></td>
+                                        <td class="value">0404019</td>
+                                    </tr> -->
+                                    <tr>
+                                        <td class="label"><span>Category</span></td>
+                                        <td class="value">
+                                            <ul class="product-category">
+                                                <li><a href="#">{{p.sub_category.category_name}}</a></li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <!-- <tr>
+                                        <td class="label"><span>Tags</span></td>
+                                        <td class="value">
+                                            <ul class="product-tags">
+                                                <li><a href="#">handmade</a></li>
+                                                <li><a href="#">learts</a></li>
+                                                <li><a href="#">mug</a></li>
+                                                <li><a href="#">product</a></li>
+                                                <li><a href="#">learts</a></li>
+                                            </ul>
+                                        </td>
+                                    </tr> -->
+                                    <tr>
+                                        <td class="label"><span>Share on</span></td>
+                                        <td class="va">
+                                            <div class="product-share">
+                                                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                                <a href="#"><i class="fab fa-google-plus-g"></i></a>
+                                                <a href="#"><i class="fab fa-pinterest"></i></a>
+                                                <a href="#"><i class="far fa-envelope"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product Summery End -->
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

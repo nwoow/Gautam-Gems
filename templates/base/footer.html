@@ -1,0 +1,96 @@
+<div class="footer2-section section section-padding">
+    <div class="container">
+        <div class="row learts-mb-n40">
+
+            <div class="col-lg-5 learts-mb-40">
+                <div class="widget-about">
+                    <img src="{{company_logo}}" alt="footer-logo" width="180">
+                    <p style="text-align: justify; color: #000;"><strong>"</strong>{{company_desc}}<b>"</b></p>
+                </div>
+                <div class="footer5-social align-self-end learts-mt-30">
+                    <ul class="widget-social ">
+                        <li class="hintT-top twitter-hint" data-hint="Twitter"> <a href="https://www.twitter.com/"><i
+                                    class="fab fa-twitter"></i></a></li>
+                        <li class="hintT-top facebook-hint" data-hint="Facebook"> <a href="https://www.facebook.com/"><i
+                                    class="fab fa-facebook-f"></i></a></li>
+                        <li class="hintT-top insta-hint" data-hint="Instagram"> <a href="https://www.instagram.com/"><i
+                                    class="fab fa-instagram"></i></a></li>
+                        <li class="hintT-top youtube-hint" data-hint="Youtube"> <a href="https://www.youtube.com/"><i
+                                    class="fab fa-youtube"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-4 learts-mb-40">
+                <div class="row">
+                    <div class="col">
+                        <ul class="widget-list">
+                            <li><a class="text-black " href="{% url 'about' %}">About us</a></li>
+                            <li><a class="text-black " href="{% url 'blog' %}">Blogs</a></li>
+                            <li><a class="text-black " href="{% url 'contact' %}">Contact</a></li>
+                            <li><a class="text-black " href="order-tracking.html">Track Orders</a></li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <ul class="widget-list">
+                            <li><a class="text-black " href="{% url 'terms' %}">Terms And Conditions</a></li>
+                            <li><a class="text-black " href="{% url 'privacy' %}">Privacy Policy</a></li>
+                            <li><a class="text-black " href="{% url 'refunds' %}">Refunds Policy</a></li>
+                            <li><a class="text-black " href="{% url 'shipping_policy' %}">Shipping Policy</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 learts-mb-40">
+                <div class="widget-contact">
+                    <a href="mailto:{{email}}">
+                        <p class="email">{{email}}</p>
+                    </a>
+                    <a href="tel:+91{{mobile}}">
+                        <p class="phone">+91{{mobile}}</p>
+                    </a>
+                    <div class="app-buttons">
+                        <a href="#"><img src="/static/assets/images/others/android.webp" alt=""></a>
+                        <a href="#"><img src="/static/assets/images/others/ios.webp" alt=""></a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="footer3-bottom section section-fluid p-3 " style="background-color: #E1F7B0;">
+    <div class="container">
+        <div class="row align-items-end ">
+            <div class="col-md-4 col-12  order-md-3">
+                <div class="widget-payment text-center text-md-right">
+                    <img src="/static/assets/images/others/pay.webp" alt="">
+                </div>
+            </div>
+
+            <div class="col-md-4 col-12 l order-md-1">
+                <div class="widget-copyright">
+                    <p class="copyright text-center text-md-left">&copy;<span id="year"></span> {{company_name}}. All Rights Reserved</p>
+                </div>
+            </div>
+            <div class="col-md-4 col-12 l order-md-2">
+                <div class="widget-copyright">
+                    <p class="copyright text-center text-md-left">Designed &amp; Maintained By <a
+                            href="{{developer_website}}" class="ghost" target="_blank"> <img src="{{developer_logo}}"
+                                width="30" alt="tech Logo"> {{developer_name}}</a>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var yearElement = document.getElementById('year');
+        var currentYear = new Date().getFullYear();
+        yearElement.textContent = currentYear;
+    });
+</script>
